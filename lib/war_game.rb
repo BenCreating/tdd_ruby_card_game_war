@@ -1,3 +1,5 @@
+require_relative 'war_player'
+
 class WarGame
 
   def start
