@@ -4,6 +4,7 @@ describe 'WarPlayer' do
   it 'creates a player without specifying attributes' do
     player = WarPlayer.new
     expect(player.name).not_to be_nil
+    expect(player.card_count).to eq 0
   end
 
   it 'creates a player with specified attributes' do
