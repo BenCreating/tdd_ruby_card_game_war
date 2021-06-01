@@ -3,7 +3,7 @@ require_relative '../lib/card_deck'
 describe 'CardDeck' do
   let(:deck) { CardDeck.new }
 
-  it 'Should have 52 cards when created' do
+  it 'should have 52 cards when created' do
     expect(deck.cardsLeft).to eq 52
   end
 
