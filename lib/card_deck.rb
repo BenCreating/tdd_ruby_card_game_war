@@ -7,7 +7,7 @@ class CardDeck
     @cards = cards
   end
 
-  def cardsLeft
+  def cards_left
     @cards.count
   end
 

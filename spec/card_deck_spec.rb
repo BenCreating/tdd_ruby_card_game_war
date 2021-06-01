@@ -5,7 +5,7 @@ describe 'CardDeck' do
   let(:deck) { CardDeck.new }
 
   it 'should have 52 cards when created' do
-    expect(deck.cardsLeft).to eq 52
+    expect(deck.cards_left).to eq 52
   end
 
   it 'should initialize the deck with all the default cards' do
@@ -46,7 +46,7 @@ describe 'CardDeck' do
     unshuffled_deck_top_card = 'K'
     card = deck.deal
     expect(card.rank).to eq unshuffled_deck_top_card
-    expect(deck.cardsLeft).to eq 51
+    expect(deck.cards_left).to eq 51
   end
 
   it 'should shuffle the deck' do
@@ -56,7 +56,7 @@ describe 'CardDeck' do
 
     shuffled_ranks = []
     unshuffled_ranks = []
-    while deck.cardsLeft > 0
+    while deck.cards_left > 0
       unshuffled_ranks << deck.deal
       shuffled_ranks << deck_shuffled.deal
     end
