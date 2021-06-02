@@ -20,4 +20,10 @@ describe 'WarGame' do
     game.start
     expect(game.players.count).to eq 2
   end
+
+  it 'deals cards to the players' do
+    game.start
+    player_card_count = game.players.first.card_count
+    expect(player_card_count).to eq 26
+  end
 end
