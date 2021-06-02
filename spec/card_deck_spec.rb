@@ -48,4 +48,12 @@ describe 'CardDeck' do
     expect(card.rank).to eq unshuffled_deck_top_card
     expect(deck.cards_left).to eq 51
   end
+
+  it 'should add a card to the deck' do
+    card = PlayingCard.new('NEW')
+    deck.add_card(card)
+    expect(deck.cards_left).to eq 53
+    top_card = deck.deal
+    expect(top_card.rank).not_to eq card.rank
+  end
 end
