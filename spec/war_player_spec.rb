@@ -22,7 +22,7 @@ describe 'WarPlayer' do
   it 'plays the top card from the hand' do
     cards = [PlayingCard.new('A'), PlayingCard.new('K')]
     player = WarPlayer.new('Alice', CardDeck.new(cards))
-    card = player.play_card
-    expect(card.rank).to eq cards.last.rank
+    played_card = player.play_card
+    expect(played_card.rank).to eq cards.last.rank
   end
 end
