@@ -43,17 +43,20 @@ describe 'WarGame' do
   end
 
   context 'play_round' do
-    it 'each player plays a card, player 1 wins' do
-      deck = ShufflingDeck.new([PlayingCard.new('K'), PlayingCard.new('2')])
-      game.start(deck)
+    let(:deck) { ShufflingDeck.new([]) }
+    it 'each player plays a card, player 1 wins and takes the cards' do
+      player1_hand = CardDeck.new([PlayingCard.new('K')])
+      player2_hand = CardDeck.new([PlayingCard.new('2')])
+      game.start(deck, player1_hand, player2_hand)
       game.play_round
       expect(game.players.first.card_count).to eq 2
       expect(game.players.last.card_count).to eq 0
     end
 
-    it 'each player plays a card, player 2 wins' do
-      deck = ShufflingDeck.new([PlayingCard.new('2'), PlayingCard.new('J')])
-      game.start(deck)
+    it 'each player plays a card, player 2 wins and takes the cards' do
+      player1_hand = CardDeck.new([PlayingCard.new('5')])
+      player2_hand = CardDeck.new([PlayingCard.new('10')])
+      game.start(deck, player1_hand, player2_hand)
       game.play_round
       expect(game.players.first.card_count).to eq 0
       expect(game.players.last.card_count).to eq 2
