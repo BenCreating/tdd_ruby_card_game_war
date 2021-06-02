@@ -2,8 +2,8 @@ require_relative 'war_player'
 
 class WarGame
 
-  def start
-    @deck = ShufflingDeck.new
+  def start(deck = ShufflingDeck.new)
+    @deck = deck
     @players = [WarPlayer.new('Alice'), WarPlayer.new('Bob')]
 
     @deck.shuffle
