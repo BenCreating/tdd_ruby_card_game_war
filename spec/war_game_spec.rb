@@ -62,7 +62,7 @@ describe 'WarGame' do
       expect(game.players.last.card_count).to eq 2
     end
 
-    it 'returns a string describing the round' do
+    it 'returns a string describing a normal round' do
       player1_hand = CardDeck.new([PlayingCard.new('10')])
       player2_hand = CardDeck.new([PlayingCard.new('2')])
       game.start(deck, player1_hand, player2_hand)
@@ -70,6 +70,13 @@ describe 'WarGame' do
       winner_card = '10'
       loser_card = '2'
       expect(game.play_round).to eq "Player #{winner} beat #{loser_card} with #{winner_card}"
+    end
+
+    it 'returns a string describing a tied round' do
+      player1_hand = CardDeck.new([PlayingCard.new('5')])
+      player2_hand = CardDeck.new([PlayingCard.new('5')])
+      game.start(deck, player1_hand, player2_hand)
+      expect(game.play_round).to eq "Both play 5! There are 2 cards on the table."
     end
 
     context 'tie games' do
