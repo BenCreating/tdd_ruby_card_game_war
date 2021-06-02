@@ -92,6 +92,25 @@ describe WarSocketServer do
     expect(client1.output).to eq 'Waiting for Player 2'
   end
 
+  it 'report when waiting for player 1 to play a card' do
+    @server.start
+    client1 = MockWarSocketClient.new(@server.port_number)
+    @clients.push(client1)
+    @server.accept_new_client("Player 1")
+    @server.create_game_if_possible
+    expect(@server.games.count).to be 0
+    client2 = MockWarSocketClient.new(@server.port_number)
+    @clients.push(client2)
+    @server.accept_new_client("Player 2")
+    @server.create_game_if_possible
+    client2.capture_output # clear out the game started message
+    client2.provide_input('play')
+    @server.check_ready_players
+    @server.report_game_state
+    client2.capture_output
+    expect(client2.output).to eq 'Waiting for Player 1'
+  end
+
   # Add more tests to make sure the game is being played
   # For example:
   #   make sure the mock client gets appropriate output
