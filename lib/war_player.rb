@@ -1,5 +1,5 @@
 class WarPlayer
-  def initialize(name = 'Anonymous', cards = [])
+  def initialize(name = 'Anonymous', cards = CardDeck.new([]))
     @name = name
     @cards = cards
   end
@@ -9,6 +9,6 @@ class WarPlayer
   end
 
   def card_count
-    @cards.count
+    @cards.cards_left
   end
 end
