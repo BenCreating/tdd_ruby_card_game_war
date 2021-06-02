@@ -56,7 +56,7 @@ describe WarSocketServer do
     expect(@server.games.count).to be 1
   end
 
-  it 'reports that the game has started' do
+  xit 'reports that the game has started' do
     @server.start
     client1 = MockWarSocketClient.new(@server.port_number)
     @clients.push(client1)
