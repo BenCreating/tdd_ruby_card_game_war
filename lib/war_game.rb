@@ -41,8 +41,18 @@ class WarGame
     best_card = better_card(player_1_card, player_2_card)
     if best_card == player_1_card
       award_cards_to_winner(@players.first)
+      winner = @players.first.name
+      loser_card = player_2_card.rank
     elsif best_card == player_2_card
       award_cards_to_winner(@players.last)
+      winner = @players.last.name
+      loser_card = player_1_card.rank
+    end
+
+    if best_card
+      "Player #{winner} beat #{loser_card} with #{best_card.rank}"
+    else
+      # tie
     end
   end
 
