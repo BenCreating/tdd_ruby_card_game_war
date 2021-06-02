@@ -56,7 +56,7 @@ class WarSocketServer
     if @clients.count == 2
       @games << WarGame.new
       @clients.first(2).each do |client|
-        client[:client].puts 'Game started, type "play" to play a card'
+        client[:client].puts 'Game started, type anything to start'
       end
     end
   end
