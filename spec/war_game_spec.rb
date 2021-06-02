@@ -28,6 +28,8 @@ describe 'WarGame' do
   end
 
   context 'play_round' do
+    # I NEED TO BE ABLE TO SPECIFY THE PLAYER CARDS, NOT JUST DECK, TO PROPERLY TEST THIS
+    # THESE SOMETIMES ARE RED BECAUSE OF SHUFFLING THE DECK
     it 'each player plays a card, player 1 wins' do
       deck = ShufflingDeck.new([PlayingCard.new('K'), PlayingCard.new('2')])
       game.start(deck)
