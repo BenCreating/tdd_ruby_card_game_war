@@ -1,4 +1,6 @@
 require_relative 'war_player'
+require_relative 'card_deck'
+require_relative 'shuffling_deck'
 
 class WarGame
 
