@@ -11,6 +11,13 @@ class WarSocketServer
     3336
   end
 
+  def capture_output(client, delay=0.1)
+    sleep(delay)
+    @output = @client.read_nonblock(1000).chomp # not gets which blocks
+  rescue IO::WaitReadable
+    @output = ""
+  end
+
   def games
     @games
   end
