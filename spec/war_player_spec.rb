@@ -27,4 +27,10 @@ describe 'WarPlayer' do
     played_card2 = player2.play_card
     expect(played_card2.rank).to eq '3'
   end
+
+  it 'adds a card to the hand' do
+    player = WarPlayer.new
+    player.pick_up_card(PlayingCard.new)
+    expect(player.card_count).to eq 1
+  end
 end
