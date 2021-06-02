@@ -16,7 +16,7 @@ class WarSocketServer
     @clients.each do |client_hash|
       client = client_hash[:client]
       capture_output(client)
-      if @output != ''
+      if @output
         client_hash[:ready] = true
       end
     end
@@ -34,7 +34,7 @@ class WarSocketServer
     sleep(delay)
     @output = client.read_nonblock(1000).chomp # not gets which blocks
   rescue IO::WaitReadable
-    @output = ""
+    @output = nil
   end
 
   def games
