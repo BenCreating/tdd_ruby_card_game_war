@@ -112,5 +112,12 @@ describe 'WarGame' do
       game.play_round
       expect(game.winner).to eq game.players.first
     end
+
+    it 'reports that player 2 has won' do
+      game.start(deck, losing_hand, winning_hand)
+      game.play_round
+      game.play_round
+      expect(game.winner).to eq game.players.last
+    end
   end
 end
