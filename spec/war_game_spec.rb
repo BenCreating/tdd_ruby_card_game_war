@@ -64,8 +64,8 @@ describe 'WarGame' do
 
     it 'the rounds tie until player 1 wins and takes all the cards' do
       tie_cards = [PlayingCard.new('7'), PlayingCard.new('J'), PlayingCard.new('3')]
-      player1_cards = tie_cards + ['K'] + ['6']
-      player2_cards = tie_cards + ['2'] + ['8']
+      player1_cards = tie_cards + [PlayingCard.new('K'), PlayingCard.new('6')]
+      player2_cards = tie_cards + [PlayingCard.new('2'), PlayingCard.new('8')]
       player1_hand = CardDeck.new(player1_cards)
       player2_hand = CardDeck.new(player2_cards)
       game.start(deck, player1_hand, player2_hand)
