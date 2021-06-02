@@ -69,8 +69,8 @@ describe WarSocketServer do
     @server.create_game_if_possible
     client1.capture_output
     client2.capture_output
-    expect(client1.output).to eq 'Game started, hit enter to play a card'
-    expect(client2.output).to eq 'Game started, hit enter to play a card'
+    expect(client1.output).to eq 'Game started, type "play" to play a card'
+    expect(client2.output).to eq 'Game started, type "play" to play a card'
   end
 
   it 'report when waiting for player 2 to play a card' do
@@ -84,7 +84,7 @@ describe WarSocketServer do
     @clients.push(client2)
     @server.accept_new_client("Player 2")
     @server.create_game_if_possible
-    client1.provide_input('')
+    client1.provide_input('play')
     @server.capture_output(client1)
     @server.report_game_state
     client1.capture_output
