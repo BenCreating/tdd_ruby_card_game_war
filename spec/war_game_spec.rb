@@ -81,6 +81,22 @@ describe 'WarGame' do
         expect(game.players.first.card_count).to eq 9
         expect(game.players.last.card_count).to eq 1
       end
+
+      it 'the rounds tie until player 2 wins and takes all the cards' do
+        player1_hand = CardDeck.new(losing_cards + tie_cards)
+        player2_hand = CardDeck.new(winning_cards + tie_cards)
+        game.start(deck, player1_hand, player2_hand)
+        game.play_round
+        expect(game.table_cards.count).to eq 2
+        game.play_round
+        expect(game.table_cards.count).to eq 4
+        game.play_round
+        expect(game.table_cards.count).to eq 6
+        game.play_round
+        expect(game.table_cards.count).to eq 0
+        expect(game.players.first.card_count).to eq 1
+        expect(game.players.last.card_count).to eq 9
+      end
     end
   end
 end
