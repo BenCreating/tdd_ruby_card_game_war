@@ -20,10 +20,10 @@ describe 'WarGame' do
     it 'starts a game with a specified deck' do
       deck = ShufflingDeck.new([PlayingCard.new('A'), PlayingCard.new('2')])
       game.start(deck)
-      expect(game.players.first.play_card.rank).to eq '2'
+      expect(game.players.first.play_card.rank).to eq 'A'
       deck2 = ShufflingDeck.new([PlayingCard.new('J'), PlayingCard.new('Q')])
       game.start(deck2)
-      expect(game.players.first.play_card.rank).to eq 'Q'
+      expect(game.players.first.play_card.rank).to eq 'J'
     end
   end
 end
