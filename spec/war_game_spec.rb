@@ -95,4 +95,15 @@ describe 'WarGame' do
       end
     end
   end
+
+  context 'winner' do
+    let(:deck) { ShufflingDeck.new([]) }
+    let(:winning_hand) { CardDeck.new([PlayingCard.new('A'), PlayingCard.new('6')]) }
+    let(:losing_hand) { CardDeck.new([PlayingCard.new('K'), PlayingCard.new('3')]) }
+    it 'reports nil when no player has won the game' do
+      game.start(deck, winning_hand, losing_hand)
+      game.play_round
+      expect(game.winner).to be_nil
+    end
+  end
 end
