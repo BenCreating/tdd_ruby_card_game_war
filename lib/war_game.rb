@@ -37,15 +37,12 @@ class WarGame
     player_1_card = @players.first.play_card
     player_2_card = @players.last.play_card
 
+    @table_cards << player_1_card << player_2_card
     best_card = better_card(player_1_card, player_2_card)
     if best_card == player_1_card
-      @players.first.pick_up_card(player_1_card)
-      @players.first.pick_up_card(player_2_card)
+      award_cards_to_winner(@players.first)
     elsif best_card == player_2_card
-      @players.last.pick_up_card(player_1_card)
-      @players.last.pick_up_card(player_2_card)
-    else
-      @table_cards << player_1_card << player_2_card
+      award_cards_to_winner(@players.last)
     end
   end
 
@@ -66,6 +63,13 @@ class WarGame
         {'J' => 11, 'Q' => 12, 'K' => 13, 'A' => 14}.fetch(card.rank)
       else
         card.rank.to_i
+      end
+    end
+
+    def award_cards_to_winner(player)
+      @table_cards.count.times do
+        card = @table_cards.pop
+        player.pick_up_card(card)
       end
     end
 end
