@@ -3,7 +3,7 @@ require_relative '../lib/shuffling_deck'
 describe 'ShufflingDeck' do
   it 'should shuffle the deck' do
     # There is a tiny chance that a shuffled deck will equal an unshuffled one
-    deck = CardDeck.new
+    deck = ShufflingDeck.new
     deck_shuffled = deck
     deck_shuffled.shuffle
 
