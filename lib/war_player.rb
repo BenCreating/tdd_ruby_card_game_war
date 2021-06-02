@@ -15,4 +15,8 @@ class WarPlayer
   def play_card
     @cards.deal
   end
+
+  def pick_up_card(card)
+    @cards.add_card(card)
+  end
 end
