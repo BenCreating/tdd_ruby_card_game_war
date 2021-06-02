@@ -3,7 +3,7 @@ require_relative 'war_game'
 
 class WarSocketServer
   def initialize
-    @clients = {}
+    @clients = []
     @games = []
   end
 
@@ -21,7 +21,7 @@ class WarSocketServer
 
   def accept_new_client(player_name = "Random Player")
     client = @server.accept_nonblock
-    @clients[client] = player_name
+    @clients << {client: client, name: player_name}
   rescue IO::WaitReadable, Errno::EINTR
     puts "No client to accept"
   end
@@ -29,8 +29,8 @@ class WarSocketServer
   def create_game_if_possible
     if @clients.count == 2
       @games << WarGame.new
-      @clients.slice(2).each do |client|
-        client.puts 'Game started'
+      @clients.first(2).each do |client|
+        client[:client].puts 'Game started'
       end
     end
   end
