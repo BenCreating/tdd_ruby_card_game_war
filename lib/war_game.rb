@@ -52,7 +52,7 @@ class WarGame
     if best_card
       "Player #{winner} beat #{loser_card} with #{best_card.rank}"
     else
-      # tie
+      "Both play #{player_1_card.rank}! There are #{@table_cards.count} cards on the table."
     end
   end
 
