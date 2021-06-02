@@ -46,6 +46,14 @@ class WarGame
     end
   end
 
+  def winner
+    winning_player = nil
+    @players.each do |player|
+      winning_player = player if player.card_count <= 0
+    end
+    winning_player
+  end
+
   private
 
     def better_card(card1, card2)
