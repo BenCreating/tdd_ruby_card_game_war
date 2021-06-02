@@ -29,15 +29,33 @@ class WarGame
     player_1_card = @players.first.play_card
     player_2_card = @players.last.play_card
 
-    if better_card(player_1_card, player_2_card) == player_1_card
+    best_card = better_card(player_1_card, player_2_card)
+    if best_card == player_1_card
       @players.first.pick_up_card(player_1_card)
       @players.first.pick_up_card(player_2_card)
+    elsif best_card == player_2_card
+      @players.last.pick_up_card(player_1_card)
+      @players.last.pick_up_card(player_2_card)
     end
   end
 
   private
 
     def better_card(card1, card2)
-      card1
+      value1 = value_card(card1)
+      value2 = value_card(card2)
+      if value1 > value2
+        card1
+      elsif value2 > value1
+        card2
+      end
+    end
+
+    def value_card(card)
+      if ['A', 'J', 'Q', 'K'].include?(card.rank)
+        {'J' => 11, 'Q' => 12, 'K' => 13, 'A' => 14}.fetch(card.rank)
+      else
+        card.rank.to_i
+      end
     end
 end
