@@ -21,10 +21,6 @@ class WarGame
     @deck.cards_left
   end
 
-  def player_count
-    @players.count
-  end
-
   def players
     @players
   end

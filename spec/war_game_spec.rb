@@ -5,25 +5,15 @@ describe 'WarGame' do
   let(:game) { WarGame.new }
 
   context 'start' do
-    it 'creates a deck of cards and deals them to the players' do
+    it 'returns an array of the players' do
       game.start
-      expect(game.deck_card_count).to be > 0
+      expect(game.players.count).to eq 2
     end
 
-    it 'creates 2 default players' do
+    it 'deals cards to the players' do
       game.start
-      expect(game.player_count).to eq 2
+      player_card_count = game.players.first.card_count
+      expect(player_card_count).to eq 26
     end
-  end
-
-  it 'returns an array of the players' do
-    game.start
-    expect(game.players.count).to eq 2
-  end
-
-  it 'deals cards to the players' do
-    game.start
-    player_card_count = game.players.first.card_count
-    expect(player_card_count).to eq 26
   end
 end
