@@ -40,6 +40,16 @@ describe 'WarGame' do
       expect(game.players.first.play_card.rank).to eq '10'
       expect(game.players.last.play_card.rank).to eq '5'
     end
+
+    it 'starts the game with specified player names' do
+      deck = ShufflingDeck.new
+      hand1 = CardDeck.new([])
+      hand2 = CardDeck.new([])
+      player_names = ['Player 1', 'Player 2']
+      game.start(deck, hand1, hand2, player_names)
+      expect(game.players.first.name).to eq player_names.first
+      expect(game.players.last.name).to eq player_names.last
+    end
   end
 
   context 'play_round' do
