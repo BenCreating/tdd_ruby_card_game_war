@@ -66,8 +66,8 @@ describe 'WarGame' do
       player1_hand = CardDeck.new([PlayingCard.new('10')])
       player2_hand = CardDeck.new([PlayingCard.new('2')])
       game.start(deck, player1_hand, player2_hand)
-      loser_card = '10'
       winner = game.players.first.name
+      winner_card = '10'
       loser_card = '2'
       expect(game.play_round).to eq "Player #{winner} beat #{loser_card} with #{winner_card}"
     end
