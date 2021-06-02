@@ -27,6 +27,8 @@ class WarSocketServer
     player_2 = @clients[1]
     if player_1[:ready] && !player_2[:ready]
       player_1[:client].puts "Waiting for #{player_2[:name]}"
+    elsif !player_1[:ready] && player_2[:ready]
+      player_2[:client].puts "Waiting for #{player_1[:name]}"
     end
   end
 
