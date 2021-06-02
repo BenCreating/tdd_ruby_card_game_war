@@ -11,4 +11,8 @@ class WarPlayer
   def card_count
     @cards.cards_left
   end
+
+  def play_card
+    @cards.deal
+  end
 end
