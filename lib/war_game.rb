@@ -7,8 +7,8 @@ class WarGame
     @players = [WarPlayer.new('Alice'), WarPlayer.new('Bob')]
   end
 
-  def deck
-    @deck
+  def deck_card_count
+    @deck.cards_left
   end
 
   def player_count
