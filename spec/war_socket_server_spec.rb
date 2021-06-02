@@ -85,6 +85,8 @@ describe WarSocketServer do
     @server.accept_new_client("Player 2")
     @server.create_game_if_possible
     client1.provide_input('')
+    @server.capture_output
+    @server.report_game_state
     client1.capture_output
     expect(client1.output).to eq 'Waiting for Player 2'
   end
