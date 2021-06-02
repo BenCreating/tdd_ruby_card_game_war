@@ -5,7 +5,6 @@ class WarSocketServer
   def initialize
     @clients = []
     @games = []
-    @output = ''
   end
 
   def port_number
@@ -15,8 +14,7 @@ class WarSocketServer
   def check_ready_players
     @clients.each do |client_hash|
       client = client_hash[:client]
-      capture_output(client)
-      if @output
+      if capture_output(client)
         client_hash[:ready] = true
       end
     end
@@ -34,9 +32,9 @@ class WarSocketServer
 
   def capture_output(client, delay=0.1)
     sleep(delay)
-    @output = client.read_nonblock(1000).chomp # not gets which blocks
+    client.read_nonblock(1000).chomp # not gets which blocks
   rescue IO::WaitReadable
-    @output = nil
+    nil
   end
 
   def games
