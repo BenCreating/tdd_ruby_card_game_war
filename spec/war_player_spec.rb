@@ -10,13 +10,11 @@ describe 'WarPlayer' do
 
   it 'creates a player with specified attributes' do
     cards = [PlayingCard.new]
-    deck = CardDeck.new(cards)
-    player = WarPlayer.new('Alice', deck)
+    player = WarPlayer.new('Alice', CardDeck.new(cards))
     expect(player.name).to eq 'Alice'
     expect(player.card_count).to eq cards.count
     cards2 = [PlayingCard.new, PlayingCard.new]
-    deck2 = CardDeck.new(cards2)
-    player2 = WarPlayer.new('Bob', deck2)
+    player2 = WarPlayer.new('Bob', CardDeck.new(cards2))
     expect(player2.name).to eq 'Bob'
     expect(player2.card_count).to eq cards2.count
   end
