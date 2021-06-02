@@ -45,5 +45,9 @@ describe 'WarGame' do
       expect(game.players.first.card_count).to eq 0
       expect(game.players.last.card_count).to eq 2
     end
+
+    it 'each player plays a card, it is a tie' do
+      # fill this in
+    end
   end
 end
