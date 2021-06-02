@@ -45,10 +45,11 @@ describe 'WarGame' do
       deck = ShufflingDeck.new
       hand1 = CardDeck.new([])
       hand2 = CardDeck.new([])
-      player_names = ['Player 1', 'Player 2']
-      game.start(deck, hand1, hand2, player_names)
-      expect(game.players.first.name).to eq player_names.first
-      expect(game.players.last.name).to eq player_names.last
+      player_1_name = 'Player 1'
+      player_2_name = 'Player 2'
+      game.start(deck, hand1, hand2, player_1_name, player_2_name)
+      expect(game.players.first.name).to eq player_1_name
+      expect(game.players.last.name).to eq player_2_name
     end
   end
 
