@@ -38,6 +38,18 @@ describe WarSocketServer do
     end
   end
 
+  def setup_server_and_players
+    @server.start
+    client1 = MockWarSocketClient.new(@server.port_number)
+    @clients.push(client1)
+    @server.accept_new_client("Player 1")
+    client2 = MockWarSocketClient.new(@server.port_number)
+    @clients.push(client2)
+    @server.accept_new_client("Player 2")
+    @server.create_game_if_possible
+    [client1, client2]
+  end
+
   it "is not listening on a port before it is started"  do
     expect {MockWarSocketClient.new(@server.port_number)}.to raise_error(Errno::ECONNREFUSED)
   end
@@ -57,16 +69,9 @@ describe WarSocketServer do
   end
 
   it 'reports that the game has started' do
-    @server.start
-    client1 = MockWarSocketClient.new(@server.port_number)
-    @clients.push(client1)
-    @server.accept_new_client("Player 1")
-    @server.create_game_if_possible
-    expect(@server.games.count).to be 0
-    client2 = MockWarSocketClient.new(@server.port_number)
-    @clients.push(client2)
-    @server.accept_new_client("Player 2")
-    @server.create_game_if_possible
+    clients = setup_server_and_players()
+    client1 = clients.first
+    client2 = clients.last
     client1.capture_output
     client2.capture_output
     expect(client1.output).to eq 'Game started, type anything to start'
@@ -74,16 +79,8 @@ describe WarSocketServer do
   end
 
   it 'report when waiting for player 2 to play a card' do
-    @server.start
-    client1 = MockWarSocketClient.new(@server.port_number)
-    @clients.push(client1)
-    @server.accept_new_client("Player 1")
-    @server.create_game_if_possible
-    expect(@server.games.count).to be 0
-    client2 = MockWarSocketClient.new(@server.port_number)
-    @clients.push(client2)
-    @server.accept_new_client("Player 2")
-    @server.create_game_if_possible
+    clients = setup_server_and_players()
+    client1 = clients.first
     client1.capture_output # clear out the game started message
     client1.provide_input('play')
     @server.check_ready_players
@@ -93,16 +90,8 @@ describe WarSocketServer do
   end
 
   it 'report when waiting for player 1 to play a card' do
-    @server.start
-    client1 = MockWarSocketClient.new(@server.port_number)
-    @clients.push(client1)
-    @server.accept_new_client("Player 1")
-    @server.create_game_if_possible
-    expect(@server.games.count).to be 0
-    client2 = MockWarSocketClient.new(@server.port_number)
-    @clients.push(client2)
-    @server.accept_new_client("Player 2")
-    @server.create_game_if_possible
+    clients = setup_server_and_players()
+    client2 = clients.last
     client2.capture_output # clear out the game started message
     client2.provide_input('play')
     @server.check_ready_players
@@ -112,14 +101,9 @@ describe WarSocketServer do
   end
 
   it 'play cards if both players are ready' do
-    @server.start
-    client1 = MockWarSocketClient.new(@server.port_number)
-    @clients.push(client1)
-    @server.accept_new_client("Player 1")
-    client2 = MockWarSocketClient.new(@server.port_number)
-    @clients.push(client2)
-    @server.accept_new_client("Player 2")
-    @server.create_game_if_possible
+    clients = setup_server_and_players()
+    client1 = clients.first
+    client2 = clients.last
     client1.capture_output # clear out the game started message
     client2.capture_output # clear out the game started message
     client1.provide_input('play')
