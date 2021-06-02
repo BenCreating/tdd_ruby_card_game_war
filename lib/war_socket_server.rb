@@ -22,7 +22,7 @@ class WarSocketServer
     end
   end
 
-  def report_game_state
+  def update_game
     player_1 = @clients[0]
     player_2 = @clients[1]
     if player_1[:ready] && !player_2[:ready]
