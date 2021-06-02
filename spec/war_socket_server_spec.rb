@@ -84,6 +84,7 @@ describe WarSocketServer do
     @clients.push(client2)
     @server.accept_new_client("Player 2")
     @server.create_game_if_possible
+    client1.capture_output # clear out the game started message
     client1.provide_input('play')
     @server.check_ready_players
     @server.report_game_state
