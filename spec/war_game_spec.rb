@@ -62,6 +62,16 @@ describe 'WarGame' do
       expect(game.players.last.card_count).to eq 2
     end
 
+    it 'returns a string describing the round' do
+      player1_hand = CardDeck.new([PlayingCard.new('10')])
+      player2_hand = CardDeck.new([PlayingCard.new('2')])
+      game.start(deck, player1_hand, player2_hand)
+      loser_card = '10'
+      winner = game.players.first.name
+      loser_card = '2'
+      expect(game.play_round).to eq "Player #{winner} beat #{loser_card} with #{winner_card}"
+    end
+
     context 'tie games' do
       let(:tie_cards) { [PlayingCard.new('7'), PlayingCard.new('J')] }
       let(:winning_cards) { [PlayingCard.new('6'), PlayingCard.new('K')] }
