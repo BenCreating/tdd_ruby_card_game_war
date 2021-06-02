@@ -4,9 +4,9 @@ require_relative 'shuffling_deck'
 
 class WarGame
 
-  def start(deck = ShufflingDeck.new, hand1 = CardDeck.new([]), hand2 = CardDeck.new([]))
+  def start(deck = ShufflingDeck.new, hand1 = CardDeck.new([]), hand2 = CardDeck.new([]), player_1_name = 'Alice', player_2_name = 'Bob')
     @deck = deck
-    @players = [WarPlayer.new('Alice', hand1), WarPlayer.new('Bob', hand2)]
+    @players = [WarPlayer.new(player_1_name, hand1), WarPlayer.new(player_2_name, hand2)]
 
     @deck.shuffle
     (@deck.cards_left/2).times do
