@@ -14,4 +14,8 @@ class WarGame
   def player_count
     @players.count
   end
+
+  def players
+    @players
+  end
 end
