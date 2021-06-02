@@ -47,11 +47,12 @@ class WarGame
   end
 
   def winner
-    winning_player = nil
+    players_still_in_game = []
     @players.each do |player|
-      winning_player = player if player.card_count <= 0
+      players_still_in_game << player if player.card_count > 0
     end
-    winning_player
+
+    return players_still_in_game.pop if players_still_in_game.count == 1
   end
 
   private
