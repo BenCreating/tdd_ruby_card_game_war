@@ -67,6 +67,8 @@ describe WarSocketServer do
     @clients.push(client2)
     @server.accept_new_client("Player 2")
     @server.create_game_if_possible
+    client1.capture_output
+    client2.capture_output
     expect(client1.output).to be 'Game started'
     expect(client2.output).to be 'Game started'
   end
