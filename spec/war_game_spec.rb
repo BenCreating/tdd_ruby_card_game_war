@@ -26,4 +26,14 @@ describe 'WarGame' do
       expect([game.players.first.play_card.rank, game.players.last.play_card.rank]).to match_array ['J', 'Q']
     end
   end
+
+  context 'play_round' do
+    it 'each player plays a card, player 1 wins' do
+      deck = ShufflingDeck.new([PlayingCard.new('K'), PlayingCard.new('2')])
+      game.start(deck)
+      game.play_round
+      expect(game.players.first.card_count).to eq 2
+      expect(game.players.last.card_count).to eq 0
+    end
+  end
 end
