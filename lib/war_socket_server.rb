@@ -5,6 +5,7 @@ class WarSocketServer
   def initialize
     @clients = []
     @games = []
+    @output = ''
   end
 
   def port_number
@@ -13,7 +14,7 @@ class WarSocketServer
 
   def capture_output(client, delay=0.1)
     sleep(delay)
-    @output = @client.read_nonblock(1000).chomp # not gets which blocks
+    @output = client.socket.read_nonblock(1000).chomp # not gets which blocks
   rescue IO::WaitReadable
     @output = ""
   end
