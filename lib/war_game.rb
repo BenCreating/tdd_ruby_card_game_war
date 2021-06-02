@@ -17,6 +17,8 @@ class WarGame
       card = @deck.deal
       @players.last.pick_up_card(card)
     end
+
+    @table_cards = []
   end
 
   def deck_card_count
@@ -25,6 +27,10 @@ class WarGame
 
   def players
     @players
+  end
+
+  def table_cards
+    @table_cards
   end
 
   def play_round
@@ -38,6 +44,8 @@ class WarGame
     elsif best_card == player_2_card
       @players.last.pick_up_card(player_1_card)
       @players.last.pick_up_card(player_2_card)
+    else
+      @table_cards << player_1_card << player_2_card
     end
   end
 
