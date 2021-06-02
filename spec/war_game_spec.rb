@@ -63,7 +63,7 @@ describe 'WarGame' do
     end
 
     context 'tie games' do
-      let(:tie_cards) { [PlayingCard.new('7'), PlayingCard.new('J'), PlayingCard.new('3')] }
+      let(:tie_cards) { [PlayingCard.new('7'), PlayingCard.new('J')] }
       let(:winning_cards) { [PlayingCard.new('6'), PlayingCard.new('K')] }
       let(:losing_cards) { [PlayingCard.new('8'), PlayingCard.new('2')] }
       it 'the rounds tie until player 1 wins and takes all the cards' do
@@ -75,10 +75,8 @@ describe 'WarGame' do
         game.play_round
         expect(game.table_cards.count).to eq 4
         game.play_round
-        expect(game.table_cards.count).to eq 6
-        game.play_round
         expect(game.table_cards.count).to eq 0
-        expect(game.players.first.card_count).to eq 9
+        expect(game.players.first.card_count).to eq 7
         expect(game.players.last.card_count).to eq 1
       end
 
@@ -91,11 +89,9 @@ describe 'WarGame' do
         game.play_round
         expect(game.table_cards.count).to eq 4
         game.play_round
-        expect(game.table_cards.count).to eq 6
-        game.play_round
         expect(game.table_cards.count).to eq 0
         expect(game.players.first.card_count).to eq 1
-        expect(game.players.last.card_count).to eq 9
+        expect(game.players.last.card_count).to eq 7
       end
     end
   end
