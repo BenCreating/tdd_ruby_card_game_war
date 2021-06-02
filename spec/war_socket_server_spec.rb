@@ -69,8 +69,8 @@ describe WarSocketServer do
     @server.create_game_if_possible
     client1.capture_output
     client2.capture_output
-    expect(client1.output).to eq 'Game started'
-    expect(client2.output).to eq 'Game started'
+    expect(client1.output).to eq 'Game started, hit enter to play a card'
+    expect(client2.output).to eq 'Game started, hit enter to play a card'
   end
 
   # Add more tests to make sure the game is being played
