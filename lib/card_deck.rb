@@ -15,10 +15,6 @@ class CardDeck
     @cards.pop
   end
 
-  def shuffle
-    @cards.shuffle!
-  end
-
   private
 
     def default_cards
