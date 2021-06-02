@@ -15,6 +15,10 @@ class CardDeck
     @cards.pop
   end
 
+  def add_card(card)
+    @cards.unshift(card)
+  end
+
   private
 
     def default_cards
