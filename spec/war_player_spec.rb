@@ -18,4 +18,11 @@ describe 'WarPlayer' do
     expect(player2.name).to eq 'Bob'
     expect(player2.card_count).to eq cards2.count
   end
+
+  it 'plays the top card from the hand' do
+    cards = [PlayingCard.new('A'), PlayingCard.new('K')]
+    player = WarPlayer.new('Alice', CardDeck.new(cards))
+    card = player.play_card
+    expect(card.rank).to eq cards.last.rank
+  end
 end
