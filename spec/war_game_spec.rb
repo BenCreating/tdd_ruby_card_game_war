@@ -46,7 +46,7 @@ describe 'WarGame' do
   context 'play_round' do
     # I NEED TO BE ABLE TO SPECIFY THE PLAYER CARDS, NOT JUST DECK, TO PROPERLY TEST THIS
     # THESE SOMETIMES ARE RED BECAUSE OF SHUFFLING THE DECK
-    xit 'each player plays a card, player 1 wins' do
+    it 'each player plays a card, player 1 wins' do
       deck = ShufflingDeck.new([PlayingCard.new('K'), PlayingCard.new('2')])
       game.start(deck)
       game.play_round
@@ -54,7 +54,7 @@ describe 'WarGame' do
       expect(game.players.last.card_count).to eq 0
     end
 
-    xit 'each player plays a card, player 2 wins' do
+    it 'each player plays a card, player 2 wins' do
       deck = ShufflingDeck.new([PlayingCard.new('2'), PlayingCard.new('J')])
       game.start(deck)
       game.play_round
