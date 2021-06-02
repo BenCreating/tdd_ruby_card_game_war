@@ -37,7 +37,7 @@ describe 'WarGame' do
     end
 
     it 'each player plays a card, player 2 wins' do
-      deck = ShufflingDeck.new([PlayingCard.new('5'), PlayingCard.new('J')])
+      deck = ShufflingDeck.new([PlayingCard.new('2'), PlayingCard.new('J')])
       game.start(deck)
       game.play_round
       expect(game.players.first.card_count).to eq 0
