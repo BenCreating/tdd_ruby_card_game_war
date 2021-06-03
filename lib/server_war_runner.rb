@@ -1,4 +1,3 @@
-require_relative 'war_game'
 require_relative 'war_socket_server'
 
 delay = 0.5
