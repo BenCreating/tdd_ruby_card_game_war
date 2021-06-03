@@ -7,6 +7,13 @@ class MockPlayingCard
   end
 end
 
+class MockWarPlayer
+  attr_reader :name
+  def initialize(name)
+    @name = name
+  end
+end
+
 describe 'WarRoundResult' do
   let(:player_1) { 'Player 1' } # this would be a WarPlayer, but doesn't need to be for these tests
   let(:player_2) { 'Player 2' } # this would be a WarPlayer, but doesn't need to be for these tests
