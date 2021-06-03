@@ -2,7 +2,7 @@ require_relative '../lib/player_interface'
 require_relative '../lib/war_player'
 
 describe PlayerInterface do
-  let(:client) { 'client' }
+  let(:client) { 'client' } # This will be an object, but for these tests I don't care what it is
   let(:player_name) { 'Player 1' }
 
   it 'creates a player interface with the specified attributes' do
