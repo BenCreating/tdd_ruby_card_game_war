@@ -31,7 +31,8 @@ describe 'WarRoundResult' do
   it 'sets the winner to nil in case of a tie' do
     player_1_card = best_card
     player_2_card = best_card
-    round_result = WarRoundResult.new(best_card, player_1_card, player_2_card, players)
+    # best_card would equal nil in this case
+    round_result = WarRoundResult.new(nil, player_1_card, player_2_card, players)
     expect(round_result.winner).to eq nil
   end
 end
