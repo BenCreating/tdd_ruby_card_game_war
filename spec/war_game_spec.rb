@@ -148,4 +148,12 @@ describe 'WarGame' do
       expect(game.winner).to eq game.players.last
     end
   end
+
+  it 'returns the player clients' do
+    client1 = 'player 1 client' # this will be an object, but I don't care what it is for this test
+    client2 = 'player 1 client' # this will be an object, but I don't care what it is for this test
+    game.start(ShufflingDeck.new, CardDeck.new, CardDeck.new, 'Alice', 'Bob', client1, client2)
+    expect(game.player_1_client).to eq client1
+    expect(game.player_2_client).to eq client2
+  end
 end
