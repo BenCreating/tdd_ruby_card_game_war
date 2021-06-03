@@ -59,14 +59,10 @@ describe WarSocketServer do
 
   it "accepts new clients and starts a game if possible" do
     @server.start
-    client1 = MockWarSocketClient.new(@server.port_number)
-    @clients.push(client1)
-    @server.accept_new_client("Player 1")
+    client1 = create_and_accept_client("Player 1")
     @server.create_game_if_possible
     expect(@server.games.count).to be 0
-    client2 = MockWarSocketClient.new(@server.port_number)
-    @clients.push(client2)
-    @server.accept_new_client("Player 2")
+    client2 = create_and_accept_client("Player 2")
     @server.create_game_if_possible
     expect(@server.games.count).to be 1
   end
