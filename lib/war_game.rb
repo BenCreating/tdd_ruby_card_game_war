@@ -1,6 +1,7 @@
 require_relative 'war_player'
 require_relative 'card_deck'
 require_relative 'shuffling_deck'
+require_relative 'war_round_result'
 
 class WarGame
   attr_reader :players
@@ -9,7 +10,7 @@ class WarGame
   def start(deck: ShufflingDeck.new, player_1: WarPlayer.new(name: 'Alice', cards: CardDeck.new([])), player_2: WarPlayer.new(name: 'Bob', cards: CardDeck.new([])))
     @deck = deck
     @players = [player_1, player_2]
-
+    @table_cards = []
     deal_game_cards()
   end
 
@@ -25,7 +26,12 @@ class WarGame
   end
 
   def play_round
-
+    player_1_card = @players.first.play_card
+    player_2_card = @players.last.play_card
+    @table_cards << player_1_card << player_2_card
+    best_card = better_card(player_1_card, player_2_card)
+    round_result = WarRoundResult.new(best_card, player_1_card, player_2_card, players, @table_cards.count)
+    round_result.description
   end
 
   def winner
