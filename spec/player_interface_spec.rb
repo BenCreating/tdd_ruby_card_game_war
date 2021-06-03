@@ -1,24 +1,58 @@
 require_relative '../lib/player_interface'
 require_relative '../lib/war_player'
+require_relative '../lib/war_socket_server'
+
+class MockWarSocketClient
+  attr_reader :socket
+  attr_reader :output
+
+  def initialize(port)
+    @socket = TCPSocket.new('localhost', port)
+  end
+
+  def provide_input(text)
+    @socket.puts(text)
+  end
+
+  def capture_output(delay=0.1)
+    sleep(delay)
+    @output = @socket.read_nonblock(1000).chomp # not gets which blocks
+  rescue IO::WaitReadable
+    @output = ""
+  end
+
+  def close
+    @socket.close if @socket
+  end
+end
 
 describe PlayerInterface do
-  let(:client) { 'client' } # This will be an object, but for these tests I don't care what it is
   let(:player_name) { 'Player 1' }
+  before(:each) do
+    @server = WarSocketServer.new
+    @server.start
+    @client = MockWarSocketClient.new(@server.port_number)
+  end
+
+  after(:each) do
+    @server.stop
+    @client.close
+  end
 
   it 'creates a player interface with the specified attributes' do
-    player = PlayerInterface.new(client, player_name)
-    expect(player.client).to eq client
+    player = PlayerInterface.new(@client, player_name)
+    expect(player.client).to eq @client
     expect(player.game_player.name).to eq player_name
   end
 
   it 'sets the ready flag' do
-    player = PlayerInterface.new(client, player_name)
+    player = PlayerInterface.new(@client, player_name)
     player.set_ready
     expect(player.ready).to eq true
   end
 
   it 'clears the ready flag' do
-    player = PlayerInterface.new(client, player_name)
+    player = PlayerInterface.new(@client, player_name)
     player.set_ready
     player.clear_ready
     expect(player.ready).to eq false
