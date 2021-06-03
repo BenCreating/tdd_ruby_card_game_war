@@ -14,14 +14,14 @@ class WarGame
     @player_1_client = player_1_client
     @player_2_client = player_2_client
 
-    setup_player_hands()
+    deal_game_cards()
   end
 
   def start_server_game(player_1, player_2)
     @deck = ShufflingDeck.new
     @players = [player_1, player_2]
 
-    setup_player_hands()
+    deal_game_cards()
   end
 
   def deck_card_count
@@ -62,7 +62,7 @@ class WarGame
 
   private
 
-    def setup_player_hands
+    def deal_game_cards
       @deck.shuffle
       (@deck.cards_left/2).times do
         card = @deck.deal
