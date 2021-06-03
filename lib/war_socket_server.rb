@@ -31,8 +31,7 @@ class WarSocketServer
 
   def update_game(game)
     round_result = game.play_round
-    game.player_1_client.puts(round_result)
-    game.player_2_client.puts(round_result)
+    game_clients = lookup_clients(game)
   end
 
   def report_game_status(game)
@@ -76,4 +75,24 @@ class WarSocketServer
   def stop
     @server.close if @server
   end
+
+  private
+
+    def lookup_clients(game)
+      game_clients = []
+      players = game.players
+      players.each do |player|
+        game_clients << find_client_by_player(player)
+      end
+    end
+
+    def find_client_by_player(player)
+      @clients.each do |client|
+        if client.game_player == player
+          player_client = client
+          break
+        end
+      end
+      player_client
+    end
 end
