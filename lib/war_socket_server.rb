@@ -14,6 +14,13 @@ class WarSocketServer
     3336
   end
 
+  def accept_new_client(player_name = "Random Player")
+    client = @server.accept_nonblock
+    @clients << PlayerInterface.new(client, player_name)
+  rescue IO::WaitReadable, Errno::EINTR
+    "No client to accept"
+  end
+
   def check_ready_players
     @clients.each do |player|
       if capture_output(player.client)
@@ -51,13 +58,6 @@ class WarSocketServer
 
   def start
     @server = TCPServer.new(port_number)
-  end
-
-  def accept_new_client(player_name = "Random Player")
-    client = @server.accept_nonblock
-    @clients << PlayerInterface.new(client, player_name)
-  rescue IO::WaitReadable, Errno::EINTR
-    "No client to accept"
   end
 
   def create_game_if_possible
