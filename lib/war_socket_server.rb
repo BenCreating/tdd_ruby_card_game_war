@@ -1,6 +1,8 @@
 require 'socket'
 require_relative 'war_game'
 require_relative 'player_interface'
+require_relative 'card_deck'
+require_relative 'shuffling_deck'
 
 class WarSocketServer
   def initialize
@@ -59,8 +61,10 @@ class WarSocketServer
 
   def create_game_if_possible
     if @clients.count == 2
+      client1 = @clients[0]
+      client2 = @clients[1]
       game = WarGame.new
-      game.start
+      game.start(ShufflingDeck.new, CardDeck.new, CardDeck.new, client1.game_player.name, client2.game_player.name, client1.client, client2.client)
       @games << game
       @clients.first(2).each do |player|
         player.client.puts 'Game started, type anything to start'
