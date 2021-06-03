@@ -1,5 +1,6 @@
 require 'socket'
 require_relative 'war_game'
+require_relative 'player_interface'
 
 class WarSocketServer
   def initialize
@@ -12,10 +13,9 @@ class WarSocketServer
   end
 
   def check_ready_players
-    @clients.each do |client_hash|
-      client = client_hash[:client]
-      if capture_output(client)
-        client_hash[:ready] = true
+    @clients.each do |player|
+      if capture_output(player.client)
+        player.set_ready
       end
     end
   end
@@ -23,10 +23,10 @@ class WarSocketServer
   def update_game
     player_1 = @clients[0]
     player_2 = @clients[1]
-    if player_1[:ready] && !player_2[:ready]
-      player_1[:client].puts "Waiting for #{player_2[:name]}"
-    elsif !player_1[:ready] && player_2[:ready]
-      player_2[:client].puts "Waiting for #{player_1[:name]}"
+    if player_1.ready && !player_2.ready
+      player_1.client.puts "Waiting for #{player_2.game_player.name}"
+    elsif !player_1.ready && player_2.ready
+      player_2.client.puts "Waiting for #{player_1.game_player.name}"
     end
   end
 
@@ -47,7 +47,7 @@ class WarSocketServer
 
   def accept_new_client(player_name = "Random Player")
     client = @server.accept_nonblock
-    @clients << {client: client, name: player_name}
+    @clients << PlayerInterface.new(client, player_name)
   rescue IO::WaitReadable, Errno::EINTR
     puts "No client to accept"
   end
@@ -55,8 +55,8 @@ class WarSocketServer
   def create_game_if_possible
     if @clients.count == 2
       @games << WarGame.new
-      @clients.first(2).each do |client|
-        client[:client].puts 'Game started, type anything to start'
+      @clients.first(2).each do |player|
+        player.client.puts 'Game started, type anything to start'
       end
     end
   end
