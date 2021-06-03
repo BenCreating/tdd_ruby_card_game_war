@@ -14,34 +14,14 @@ class WarGame
     @player_1_client = player_1_client
     @player_2_client = player_2_client
 
-    @deck.shuffle
-    (@deck.cards_left/2).times do
-      card = @deck.deal
-      @players.first.pick_up_card(card)
-    end
-    @deck.cards_left.times do
-      card = @deck.deal
-      @players.last.pick_up_card(card)
-    end
-
-    @table_cards = []
+    setup_player_hands()
   end
 
   def start_server_game(player_1, player_2)
     @deck = ShufflingDeck.new
     @players = [player_1, player_2]
 
-    @deck.shuffle
-    (@deck.cards_left/2).times do
-      card = @deck.deal
-      @players.first.pick_up_card(card)
-    end
-    @deck.cards_left.times do
-      card = @deck.deal
-      @players.last.pick_up_card(card)
-    end
 
-    @table_cards = []
   end
 
   def deck_card_count
@@ -81,6 +61,20 @@ class WarGame
   end
 
   private
+
+    def setup_player_hands
+      @deck.shuffle
+      (@deck.cards_left/2).times do
+        card = @deck.deal
+        @players.first.pick_up_card(card)
+      end
+      @deck.cards_left.times do
+        card = @deck.deal
+        @players.last.pick_up_card(card)
+      end
+
+      @table_cards = []
+    end
 
     def better_card(card1, card2)
       value1 = value_card(card1)
