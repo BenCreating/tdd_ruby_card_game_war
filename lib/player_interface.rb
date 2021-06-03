@@ -7,7 +7,7 @@ class PlayerInterface
 
   def initialize(client, player_name = 'Anonymous')
     @client = client
-    @game_player = WarPlayer.new(player_name)
+    @game_player = WarPlayer.new(name: player_name)
     @ready = false
   end
 

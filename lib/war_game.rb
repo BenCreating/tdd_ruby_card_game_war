@@ -10,7 +10,7 @@ class WarGame
 
   def start(deck = ShufflingDeck.new, hand1 = CardDeck.new([]), hand2 = CardDeck.new([]), player_1_name = 'Alice', player_2_name = 'Bob', player_1_client = nil, player_2_client = nil)
     @deck = deck
-    @players = [WarPlayer.new(player_1_name, hand1), WarPlayer.new(player_2_name, hand2)]
+    @players = [WarPlayer.new(name: player_1_name, cards: hand1), WarPlayer.new(name: player_2_name, cards: hand2)]
     @player_1_client = player_1_client
     @player_2_client = player_2_client
 
