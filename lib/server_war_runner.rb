@@ -1,4 +1,5 @@
 require_relative 'war_socket_server'
+require 'pry'
 
 delay = 0.5
 
@@ -10,7 +11,6 @@ until server.create_game_if_possible do
 end
 
 game = server.games.first
-game.start
 until game.winner do
   sleep(delay)
   server.update_game(game)
