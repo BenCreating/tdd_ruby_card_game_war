@@ -14,4 +14,8 @@ class PlayerInterface
   def set_ready
     @ready = true
   end
+
+  def clear_ready
+    @ready = false
+  end
 end
