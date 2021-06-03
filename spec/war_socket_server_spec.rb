@@ -117,7 +117,7 @@ describe WarSocketServer do
     expect(client2.output).not_to eq nil
   end
 
-  xit 'play cards if both players are ready' do
+  it 'play cards if both players are ready' do
     clients = setup_server_and_players()
     client1 = clients.first
     client2 = clients.last
@@ -126,11 +126,12 @@ describe WarSocketServer do
     client1.provide_input('play')
     client2.provide_input('play')
     @server.check_ready_players
-    @server.update_game
+    @server.update_game(@server.games.first)
     client1.capture_output
     client2.capture_output
-    expect(client1.output).not_to eq ''
-    expect(client2.output).not_to eq ''
+    waiting_message = 'Waiting for Player'
+    expect(client1.output.include?(waiting_message)).to eq false
+    expect(client2.output.include?(waiting_message)).to eq false
   end
 
   # Add more tests to make sure the game is being played
