@@ -32,15 +32,7 @@ class WarSocketServer
   end
 
   def update_game(game)
-    round_result = game.play_round
-    game_clients = lookup_clients(game)
-    check_ready_players(game)
-    if game_clients.first.ready && game_clients.last.ready
-      game_clients.each do |client_interface|
-        client_interface.client.puts(round_result)
-        client_interface.clear_ready
-      end
-    end
+
   end
 
   def capture_output(client, delay=0.1)
@@ -59,41 +51,30 @@ class WarSocketServer
   end
 
   def create_game_if_possible
-    if @clients.count == 2
-      client1 = @clients[0]
-      client2 = @clients[1]
-      game = WarGame.new
-      game.start(player_1: client1.game_player, player_2: client2.game_player)
-      @games << game
-      @clients.first(2).each do |player|
-        player.client.puts 'Game started, type anything to start'
-      end
-    end
+
   end
 
   def stop
     @server.close if @server
   end
 
-  private
-
-    def lookup_clients(game)
-      game_clients = []
-      players = game.players
-      players.each do |player|
-        game_clients << find_client_by_player(player)
-      end
-      game_clients
+  def lookup_clients(game)
+    game_clients = []
+    players = game.players
+    players.each do |player|
+      game_clients << find_client_by_player(player)
     end
+    game_clients
+  end
 
-    def find_client_by_player(player)
-      player_client = nil
-      @clients.each do |client|
-        if client.game_player == player
-          player_client = client
-          break
-        end
+  def find_client_by_player(player)
+    player_client = nil
+    @clients.each do |client|
+      if client.game_player == player
+        player_client = client
+        break
       end
-      player_client
     end
+    player_client
+  end
 end
