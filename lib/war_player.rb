@@ -1,11 +1,9 @@
 class WarPlayer
+  attr_reader :name
+  
   def initialize(name = 'Anonymous', cards = CardDeck.new([]))
     @name = name
     @cards = cards
-  end
-
-  def name
-    @name
   end
 
   def card_count
