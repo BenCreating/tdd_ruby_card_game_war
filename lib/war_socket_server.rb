@@ -23,8 +23,9 @@ class WarSocketServer
   end
 
   def update_game(game)
-    game.play_round
-    report_game_status(game)
+    round_result = game.play_round
+    game.player_1_client.puts(round_result)
+    game.player_2_client.puts(round_result)
   end
 
   def report_game_status(game)
@@ -56,7 +57,7 @@ class WarSocketServer
     client = @server.accept_nonblock
     @clients << PlayerInterface.new(client, player_name)
   rescue IO::WaitReadable, Errno::EINTR
-    puts "No client to accept"
+    "No client to accept"
   end
 
   def create_game_if_possible
