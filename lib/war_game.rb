@@ -6,9 +6,9 @@ class WarGame
   attr_reader :players
   attr_reader :table_cards
 
-  def start(deck = ShufflingDeck.new, hand1 = CardDeck.new([]), hand2 = CardDeck.new([]), player_1_name = 'Alice', player_2_name = 'Bob', player_1_client = nil, player_2_client = nil)
+  def start(deck: ShufflingDeck.new, player_1: WarPlayer.new(name: 'Alice', cards: CardDeck.new([])), player_2: WarPlayer.new(name: 'Bob', cards: CardDeck.new([])))
     @deck = deck
-    @players = [WarPlayer.new(name: player_1_name, cards: hand1), WarPlayer.new(name: player_2_name, cards: hand2)]
+    @players = [player_1, player_2]
 
     deal_game_cards()
   end
