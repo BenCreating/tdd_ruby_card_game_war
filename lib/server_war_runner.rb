@@ -13,6 +13,7 @@ end
 game = server.games.first
 game.start
 until game.winner do
+  sleep(delay)
   server.update_game(game)
 end
 puts "Winner: #{game.winner.name}"
