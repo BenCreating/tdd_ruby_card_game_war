@@ -22,8 +22,9 @@ class WarSocketServer
     puts "No client to accept"
   end
 
-  def check_ready_players
-    @clients.each do |player|
+  def check_ready_players(game)
+    game_clients = lookup_clients(game)
+    game_clients.each do |player|
       if capture_output(player.client)
         player.set_ready
       end
