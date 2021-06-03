@@ -82,7 +82,7 @@ describe WarSocketServer do
     client1 = clients.first
     client1.capture_output # clear out the game started message
     client1.provide_input('play')
-    @server.check_ready_players
+    @server.check_ready_players(@servers.games.first)
     @server.report_game_status(@server.games.first)
     client1.capture_output
     expect(client1.output).to eq 'Waiting for Player 2'
@@ -93,7 +93,7 @@ describe WarSocketServer do
     client2 = clients.last
     client2.capture_output # clear out the game started message
     client2.provide_input('play')
-    @server.check_ready_players
+    @server.check_ready_players(@servers.games.first)
     @server.report_game_status(@server.games.first)
     client2.capture_output
     expect(client2.output).to eq 'Waiting for Player 1'
@@ -107,7 +107,7 @@ describe WarSocketServer do
     client2.capture_output # clear out the game started message
     client1.provide_input('play')
     client2.provide_input('play')
-    @server.check_ready_players
+    @server.check_ready_players(@servers.games.first)
     @server.update_game(@server.games.first)
     @server.report_game_status(@server.games.first)
     client1.capture_output
@@ -124,7 +124,7 @@ describe WarSocketServer do
     client2.capture_output # clear out the game started message
     client1.provide_input('play')
     client2.provide_input('play')
-    @server.check_ready_players
+    @server.check_ready_players(@servers.games.first)
     @server.update_game(@server.games.first)
     client1.capture_output
     client2.capture_output
