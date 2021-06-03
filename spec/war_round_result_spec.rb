@@ -65,4 +65,9 @@ describe 'WarRoundResult' do
     round_result = WarRoundResult.new(nil, player_1_card, player_2_card, players, table_cards_count)
     expect(round_result.description).to eq "Both play #{best_card.rank}! There are 2 cards on the table."
   end
+
+  it 'returns the losing card' do
+    round_result = WarRoundResult.new(best_card, best_card, loser_card, players, table_cards_count)
+    expect(round_result.get_loser_card).to eq loser_card
+  end
 end
