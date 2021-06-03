@@ -3,6 +3,10 @@ require_relative 'card_deck'
 require_relative 'shuffling_deck'
 
 class WarGame
+  attr_reader :players
+  attr_reader :table_cards
+  attr_reader :player_1_client
+  attr_reader :player_2_client
 
   def start(deck = ShufflingDeck.new, hand1 = CardDeck.new([]), hand2 = CardDeck.new([]), player_1_name = 'Alice', player_2_name = 'Bob', player_1_client = nil, player_2_client = nil)
     @deck = deck
@@ -25,14 +29,6 @@ class WarGame
 
   def deck_card_count
     @deck.cards_left
-  end
-
-  def players
-    @players
-  end
-
-  def table_cards
-    @table_cards
   end
 
   def play_round
