@@ -33,7 +33,7 @@ class WarRoundResult
     elsif winner == @player_2
       "Player #{winner.name} beat #{loser_card.rank} with #{best_card.rank}"
     else # the round is a tie
-      "Both play #{best_card.rank}! There are #{table_cards_count} cards on the table."
+      "Both play #{player_1_card.rank}! There are #{table_cards_count} cards on the table."
     end
   end
 end
