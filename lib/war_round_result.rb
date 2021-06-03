@@ -2,12 +2,16 @@ class WarRoundResult
   attr_reader :winner
 
   def initialize(best_card, player_1_card, player_2_card, players)
+    @winner = get_winner(best_card, player_1_card, player_2_card, players)
+  end
+
+  def get_winner(best_card, player_1_card, player_2_card, players)
     if best_card == player_1_card
-      @winner = players.first
+      players.first
     elsif best_card == player_2_card
-      @winner = players.last
+      players.last
     else
-      @winner = nil
+      nil
     end
   end
 end
