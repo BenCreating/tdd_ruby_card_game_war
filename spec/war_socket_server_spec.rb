@@ -109,6 +109,12 @@ describe WarSocketServer do
     client1.provide_input('play')
     client2.provide_input('play')
     @server.check_ready_players
+    @server.update_game(@server.games.first)
+    @server.report_game_status(@server.games.first)
+    client1.capture_output
+    client2.capture_output
+    expect(client1.output).not_to eq nil
+    expect(client2.output).not_to eq nil
   end
 
   xit 'play cards if both players are ready' do
