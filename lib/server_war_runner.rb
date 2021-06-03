@@ -16,3 +16,5 @@ until game.winner do
   server.update_game(game)
 end
 puts "Winner: #{game.winner.name}"
+
+server.stop
