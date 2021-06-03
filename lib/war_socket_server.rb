@@ -34,9 +34,12 @@ class WarSocketServer
   def update_game(game)
     round_result = game.play_round
     game_clients = lookup_clients(game)
-    game_clients.each do |client_interface|
-      client_interface.client.puts(round_result)
-      client_interface.clear_ready
+    check_ready_players(game)
+    if game_clients.first.ready && game_clients.last.ready
+      game_clients.each do |client_interface|
+        client_interface.client.puts(round_result)
+        client_interface.clear_ready
+      end
     end
   end
 
