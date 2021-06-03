@@ -20,4 +20,11 @@ describe 'WarRoundResult' do
     round_result = WarRoundResult.new(best_card, player_1_card, player_2_card, players)
     expect(round_result.winner).to eq player_1
   end
+
+  it 'returns player 2 as the winner of the round' do
+    player_1_card = loser_card
+    player_2_card = best_card
+    round_result = WarRoundResult.new(best_card, player_1_card, player_2_card, players)
+    expect(round_result.winner).to eq player_2
+  end
 end
