@@ -150,8 +150,10 @@ describe 'WarGame' do
   end
 
   it 'returns the player clients' do
-    client1 = 'player 1 client' # this will be an object, but I don't care what it is for this test
-    client2 = 'player 1 client' # this will be an object, but I don't care what it is for this test
+    # these will be object,s but I don't care what they are for this test
+    client1 = 'player 1 client'
+    client2 = 'player 1 client'
+    
     game.start(ShufflingDeck.new, CardDeck.new, CardDeck.new, 'Alice', 'Bob', client1, client2)
     expect(game.player_1_client).to eq client1
     expect(game.player_2_client).to eq client2
