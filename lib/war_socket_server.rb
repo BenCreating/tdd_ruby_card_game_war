@@ -18,7 +18,7 @@ class WarSocketServer
     client = @server.accept_nonblock
     @clients << PlayerInterface.new(client, player_name)
   rescue IO::WaitReadable, Errno::EINTR
-    "No client to accept"
+    puts "No client to accept"
   end
 
   def check_ready_players
