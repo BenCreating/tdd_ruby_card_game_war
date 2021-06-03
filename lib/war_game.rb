@@ -27,6 +27,23 @@ class WarGame
     @table_cards = []
   end
 
+  def start_server_game(player_1, player_2)
+    @deck = ShufflingDeck.new
+    @players = [player_1, player_2]
+
+    @deck.shuffle
+    (@deck.cards_left/2).times do
+      card = @deck.deal
+      @players.first.pick_up_card(card)
+    end
+    @deck.cards_left.times do
+      card = @deck.deal
+      @players.last.pick_up_card(card)
+    end
+
+    @table_cards = []
+  end
+
   def deck_card_count
     @deck.cards_left
   end
