@@ -49,4 +49,11 @@ describe 'WarRoundResult' do
     round_result = WarRoundResult.new(best_card, player_1_card, player_2_card, players)
     expect(round_result.description).to eq "Player #{player_1.name} beat #{loser_card.rank} with #{best_card.rank}"
   end
+
+  it 'sets the description, player 2 wins' do
+    player_1_card = loser_card
+    player_2_card = best_card
+    round_result = WarRoundResult.new(best_card, player_1_card, player_2_card, players)
+    expect(round_result.description).to eq "Player #{player_2.name} beat #{loser_card.rank} with #{best_card.rank}"
+  end
 end
