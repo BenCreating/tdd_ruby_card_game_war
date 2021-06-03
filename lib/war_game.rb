@@ -44,7 +44,13 @@ class WarGame
   end
 
   def deal_game_cards
-
+    cards_per_player = @deck.cards_left/@players.count
+    @players.each do |player|
+      cards_per_player.times do
+        card = @deck.deal
+        player.pick_up_card(card)
+      end
+    end
   end
 
   def better_card(card1, card2)
