@@ -57,4 +57,11 @@ describe PlayerInterface do
     player.clear_ready
     expect(player.ready).to eq false
   end
+
+  it 'sends a message to the client' do
+    message = 'Hello'
+    player = PlayerInterface.new(@client, player_name)
+    player.tell(message)
+    expect(@client.capture_output).to eq message
+  end
 end
