@@ -40,14 +40,17 @@ describe WarSocketServer do
 
   def setup_server_and_players
     @server.start
-    client1 = MockWarSocketClient.new(@server.port_number)
-    @clients.push(client1)
-    @server.accept_new_client("Player 1")
-    client2 = MockWarSocketClient.new(@server.port_number)
-    @clients.push(client2)
-    @server.accept_new_client("Player 2")
+    client1 = create_and_accept_client("Player 1")
+    client2 = create_and_accept_client("Player 2")
     @server.create_game_if_possible
     [client1, client2]
+  end
+
+  def create_and_accept_client(name = 'Random')
+    client = MockWarSocketClient.new(@server.port_number)
+    @clients.push(client)
+    @server.accept_new_client(name)
+    client
   end
 
   it "is not listening on a port before it is started"  do
