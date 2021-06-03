@@ -43,16 +43,6 @@ class WarSocketServer
     end
   end
 
-  def report_game_status(game)
-    player_1 = @clients[0]
-    player_2 = @clients[1]
-    if player_1.ready && !player_2.ready
-      player_1.client.puts "Waiting for #{player_2.game_player.name}"
-    elsif !player_1.ready && player_2.ready
-      player_2.client.puts "Waiting for #{player_1.game_player.name}"
-    end
-  end
-
   def capture_output(client, delay=0.1)
     sleep(delay)
     client.read_nonblock(1000).chomp # not gets which blocks
