@@ -7,7 +7,7 @@ describe 'WarGame' do
   let(:game) { WarGame.new }
 
   def create_player(name = 'Anonymous', card_ranks = [])
-    create_cards(card_ranks)
+    cards = create_cards(card_ranks)
     WarPlayer.new(name: name, cards: CardDeck.new(cards))
   end
 
@@ -43,12 +43,13 @@ describe 'WarGame' do
     it 'starts the game with specified player hands' do
       player_1 = create_player('Player 1', ['3'])
       player_2 = create_player('Player 2', ['K'])
-      game.start(deck: deck, player_1: player_1, player_2: player_2)
+      game.start(player_1: player_1, player_2: player_2)
       expect(game.players.first.play_card.rank).to eq '3'
       expect(game.players.last.play_card.rank).to eq 'K'
+
       player_1b = create_player('Player 1b', ['10'])
       player_2b = create_player('Player 2b', ['5'])
-      game.start(deck: deck, player_1: player_1, player_1: player_2)
+      game.start(player_1: player_1b, player_2: player_2b)
       expect(game.players.first.play_card.rank).to eq '10'
       expect(game.players.last.play_card.rank).to eq '5'
     end
@@ -103,6 +104,7 @@ describe 'WarGame' do
     end
 
     context 'tie games' do
+      let(:deck) { ShufflingDeck.new([]) }
       let(:tie_cards) { ['7', 'J'] }
       let(:winning_cards) { ['6', 'K'] }
       let(:losing_cards) { ['8', '2'] }
@@ -122,8 +124,8 @@ describe 'WarGame' do
       end
 
       it 'the rounds tie until player 2 wins and takes all the cards' do
-        player_1 = create_player('Player 1', winning_cards + tie_cards)
-        player_2 = create_player('Player 2', losing_cards + tie_cards)
+        player_1 = create_player('Player 1', losing_cards + tie_cards)
+        player_2 = create_player('Player 2', winning_cards + tie_cards)
         game.start(deck: deck, player_1: player_1, player_2: player_2)
         game.play_round
         expect(game.table_cards.count).to eq 2
