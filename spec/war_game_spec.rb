@@ -32,22 +32,22 @@ describe 'WarGame' do
     end
 
     it 'starts a game with a specified deck' do
-      deck = ShufflingDeck.new([PlayingCard.new('A'), PlayingCard.new('2')])
+      deck = ShufflingDeck.new(create_cards(['A', '2']))
       game.start(deck: deck)
       expect([game.players.first.play_card.rank, game.players.last.play_card.rank]).to match_array ['A', '2']
-      deck2 = ShufflingDeck.new([PlayingCard.new('J'), PlayingCard.new('Q')])
+      deck2 = ShufflingDeck.new(create_cards(['J', 'Q']))
       game.start(deck: deck2)
       expect([game.players.first.play_card.rank, game.players.last.play_card.rank]).to match_array ['J', 'Q']
     end
 
     it 'starts the game with specified player hands' do
-      player_1 = WarPlayer.new(cards: CardDeck.new([PlayingCard.new('3')]))
-      player_2 = WarPlayer.new(cards: CardDeck.new([PlayingCard.new('K')]))
+      player_1 = create_player('Player 1', ['3'])
+      player_2 = create_player('Player 2', ['K'])
       game.start(deck: deck, player_1: player_1, player_2: player_2)
       expect(game.players.first.play_card.rank).to eq '3'
       expect(game.players.last.play_card.rank).to eq 'K'
-      player_1b = WarPlayer.new(cards: CardDeck.new([PlayingCard.new('10')]))
-      player_2b = WarPlayer.new(cards: CardDeck.new([PlayingCard.new('5')]))
+      player_1b = create_player('Player 1b', ['10'])
+      player_2b = create_player('Player 2b', ['5'])
       game.start(deck: deck, player_1: player_1, player_1: player_2)
       expect(game.players.first.play_card.rank).to eq '10'
       expect(game.players.last.play_card.rank).to eq '5'
@@ -57,38 +57,38 @@ describe 'WarGame' do
       deck = ShufflingDeck.new
       hand1 = CardDeck.new([])
       hand2 = CardDeck.new([])
-      player_1_name = 'Player 1'
-      player_2_name = 'Player 2'
-      game.start(deck, hand1, hand2, player_1_name, player_2_name)
-      expect(game.players.first.name).to eq player_1_name
-      expect(game.players.last.name).to eq player_2_name
+      player_1 = create_player('Player 1')
+      player_2 = create_player('Player 2')
+      game.start(deck: deck, player_1: player_1, player_2: player_2)
+      expect(game.players.first.name).to eq 'Player 1'
+      expect(game.players.last.name).to eq 'Player 2'
     end
   end
 
   context 'play_round' do
     let(:deck) { ShufflingDeck.new([]) }
     it 'each player plays a card, player 1 wins and takes the cards' do
-      player1_hand = CardDeck.new([PlayingCard.new('K')])
-      player2_hand = CardDeck.new([PlayingCard.new('2')])
-      game.start(deck, player1_hand, player2_hand)
+      player_1 = create_player('Player 1', ['K'])
+      player_2 = create_player('Player 2', ['2'])
+      game.start(deck: deck, player_1: player_1, player_2: player_2)
       game.play_round
       expect(game.players.first.card_count).to eq 2
       expect(game.players.last.card_count).to eq 0
     end
 
     it 'each player plays a card, player 2 wins and takes the cards' do
-      player1_hand = CardDeck.new([PlayingCard.new('5')])
-      player2_hand = CardDeck.new([PlayingCard.new('10')])
-      game.start(deck, player1_hand, player2_hand)
+      player_1 = create_player('Player 1', ['5'])
+      player_2 = create_player('Player 2', ['10'])
+      game.start(deck: deck, player_1: player_1, player_2: player_2)
       game.play_round
       expect(game.players.first.card_count).to eq 0
       expect(game.players.last.card_count).to eq 2
     end
 
     it 'returns a string describing a normal round' do
-      player1_hand = CardDeck.new([PlayingCard.new('10')])
-      player2_hand = CardDeck.new([PlayingCard.new('2')])
-      game.start(deck, player1_hand, player2_hand)
+      player_1 = create_player('Player 1', ['10'])
+      player_2 = create_player('Player 2', ['2'])
+      game.start(deck: deck, player_1: player_1, player_2: player_2)
       winner = game.players.first.name
       winner_card = '10'
       loser_card = '2'
@@ -96,20 +96,21 @@ describe 'WarGame' do
     end
 
     it 'returns a string describing a tied round' do
-      player1_hand = CardDeck.new([PlayingCard.new('5')])
-      player2_hand = CardDeck.new([PlayingCard.new('5')])
-      game.start(deck, player1_hand, player2_hand)
+      player_1 = create_player('Player 1', ['5'])
+      player_2 = create_player('Player 2', ['5'])
+      game.start(deck: deck, player_1: player_1, player_2: player_2)
       expect(game.play_round).to eq "Both play 5! There are 2 cards on the table."
     end
 
     context 'tie games' do
-      let(:tie_cards) { [PlayingCard.new('7'), PlayingCard.new('J')] }
-      let(:winning_cards) { [PlayingCard.new('6'), PlayingCard.new('K')] }
-      let(:losing_cards) { [PlayingCard.new('8'), PlayingCard.new('2')] }
+      let(:tie_cards) { ['7', 'J'] }
+      let(:winning_cards) { ['6', 'K'] }
+      let(:losing_cards) { ['8', '2'] }
+
       it 'the rounds tie until player 1 wins and takes all the cards' do
-        player1_hand = CardDeck.new(winning_cards + tie_cards)
-        player2_hand = CardDeck.new(losing_cards + tie_cards)
-        game.start(deck, player1_hand, player2_hand)
+        player_1 = create_player('Player 1', winning_cards + tie_cards)
+        player_2 = create_player('Player 2', losing_cards + tie_cards)
+        game.start(deck: deck, player_1: player_1, player_2: player_2)
         game.play_round
         expect(game.table_cards.count).to eq 2
         game.play_round
@@ -121,9 +122,9 @@ describe 'WarGame' do
       end
 
       it 'the rounds tie until player 2 wins and takes all the cards' do
-        player1_hand = CardDeck.new(losing_cards + tie_cards)
-        player2_hand = CardDeck.new(winning_cards + tie_cards)
-        game.start(deck, player1_hand, player2_hand)
+        player_1 = create_player('Player 1', winning_cards + tie_cards)
+        player_2 = create_player('Player 2', losing_cards + tie_cards)
+        game.start(deck: deck, player_1: player_1, player_2: player_2)
         game.play_round
         expect(game.table_cards.count).to eq 2
         game.play_round
@@ -138,25 +139,24 @@ describe 'WarGame' do
 
   context 'winner' do
     let(:deck) { ShufflingDeck.new([]) }
-    let(:winning_hand) { CardDeck.new([PlayingCard.new('A'), PlayingCard.new('6')]) }
-    let(:losing_hand) { CardDeck.new([PlayingCard.new('K'), PlayingCard.new('3')]) }
+    let(:winning_player) { create_player('Winner', ['A', '6']) }
+    let(:losing_player) { create_player('Loser', ['K', '3']) }
+
     it 'reports nil when no player has won the game' do
-      game.start(deck, winning_hand, losing_hand)
+      game.start(deck: deck, player_1: winning_player, player_2: losing_player)
       game.play_round
       expect(game.winner).to be_nil
     end
 
     it 'reports that player 1 has won' do
-      game.start(deck, winning_hand, losing_hand)
-      game.play_round
-      game.play_round
+      game.start(deck: deck, player_1: winning_player, player_2: losing_player)
+      2.times { game.play_round }
       expect(game.winner).to eq game.players.first
     end
 
     it 'reports that player 2 has won' do
-      game.start(deck, losing_hand, winning_hand)
-      game.play_round
-      game.play_round
+      game.start(deck: deck, player_1: losing_player, player_2: winning_player)
+      2.times { game.play_round }
       expect(game.winner).to eq game.players.last
     end
   end
@@ -166,15 +166,5 @@ describe 'WarGame' do
     player_2 = WarPlayer.new
     game.start_server_game(player_1, player_2)
     expect(game.players.count).to eq 2
-  end
-
-  it 'returns the player clients' do
-    # these will be object,s but I don't care what they are for this test
-    client1 = 'player 1 client'
-    client2 = 'player 1 client'
-
-    game.start(ShufflingDeck.new, CardDeck.new, CardDeck.new, 'Alice', 'Bob', client1, client2)
-    expect(game.player_1_client).to eq client1
-    expect(game.player_2_client).to eq client2
   end
 end
