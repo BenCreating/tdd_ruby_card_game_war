@@ -149,11 +149,18 @@ describe 'WarGame' do
     end
   end
 
+  it 'starts a game for a server' do
+    player_1 = WarPlayer.new
+    player_2 = WarPlayer.new
+    game.start_server_game(player_1, player_2)
+    expect(game.players.count).to eq 2
+  end
+
   it 'returns the player clients' do
     # these will be object,s but I don't care what they are for this test
     client1 = 'player 1 client'
     client2 = 'player 1 client'
-    
+
     game.start(ShufflingDeck.new, CardDeck.new, CardDeck.new, 'Alice', 'Bob', client1, client2)
     expect(game.player_1_client).to eq client1
     expect(game.player_2_client).to eq client2
