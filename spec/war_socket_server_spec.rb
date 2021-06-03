@@ -100,7 +100,7 @@ describe WarSocketServer do
     expect(client2.output).to eq 'Waiting for Player 1'
   end
 
-  it 'play cards if both players are ready' do
+  xit 'play cards if both players are ready' do
     clients = setup_server_and_players()
     client1 = clients.first
     client2 = clients.last
