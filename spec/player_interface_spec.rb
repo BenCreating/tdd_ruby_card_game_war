@@ -4,9 +4,9 @@ require_relative '../lib/war_player'
 describe PlayerInterface do
   it 'creates a player interface with the specified attributes' do
     client = 'client'
-    game_player = WarPlayer.new
-    player = PlayerInterface.new(client, game_player)
+    player_name = 'Player 1'
+    player = PlayerInterface.new(client, player_name)
     expect(player.client).to eq client
-    expect(player.game_player).to eq game_player
+    expect(player.game_player.name).to eq player_name
   end
 end
