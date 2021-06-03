@@ -12,6 +12,6 @@ end
 game = server.game.first
 game.start
 until game.winner do
-  puts game.play_round
+  server.update_game(game)
 end
 puts "Winner: #{game.winner.name}"
