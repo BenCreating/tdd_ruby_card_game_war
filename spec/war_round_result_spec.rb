@@ -15,8 +15,8 @@ class MockWarPlayer
 end
 
 describe 'WarRoundResult' do
-  let(:player_1) { 'Player 1' } # this would be a WarPlayer, but doesn't need to be for these tests
-  let(:player_2) { 'Player 2' } # this would be a WarPlayer, but doesn't need to be for these tests
+  let(:player_1) { MockWarPlayer.new('Player 1') }
+  let(:player_2) { MockWarPlayer.new('Player 2') }
   let(:players) { [player_1, player_2] }
   let(:best_card) { MockPlayingCard.new('10') }
   let(:loser_card) { MockPlayingCard.new('3') }
