@@ -5,14 +5,10 @@ require_relative 'shuffling_deck'
 class WarGame
   attr_reader :players
   attr_reader :table_cards
-  attr_reader :player_1_client
-  attr_reader :player_2_client
 
   def start(deck = ShufflingDeck.new, hand1 = CardDeck.new([]), hand2 = CardDeck.new([]), player_1_name = 'Alice', player_2_name = 'Bob', player_1_client = nil, player_2_client = nil)
     @deck = deck
     @players = [WarPlayer.new(name: player_1_name, cards: hand1), WarPlayer.new(name: player_2_name, cards: hand2)]
-    @player_1_client = player_1_client
-    @player_2_client = player_2_client
 
     deal_game_cards()
   end
