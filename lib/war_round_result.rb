@@ -31,7 +31,7 @@ class WarRoundResult
     if winner == @player_1
       "Player #{winner.name} beat #{loser_card.rank} with #{best_card.rank}"
     elsif winner == @player_2
-
+      "Player #{winner.name} beat #{loser_card.rank} with #{best_card.rank}"
     else # the round is a tie
 
     end
