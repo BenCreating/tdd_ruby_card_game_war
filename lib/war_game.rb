@@ -21,7 +21,7 @@ class WarGame
     @deck = ShufflingDeck.new
     @players = [player_1, player_2]
 
-
+    setup_player_hands()
   end
 
   def deck_card_count
