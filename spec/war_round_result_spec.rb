@@ -14,14 +14,14 @@ describe 'WarRoundResult' do
   let(:best_card) { MockPlayingCard.new('10') }
   let(:loser_card) { MockPlayingCard.new('3') }
 
-  it 'returns player 1 as the winner of the round' do
+  it 'sets player 1 as the winner of the round' do
     player_1_card = best_card
     player_2_card = loser_card
     round_result = WarRoundResult.new(best_card, player_1_card, player_2_card, players)
     expect(round_result.winner).to eq player_1
   end
 
-  it 'returns player 2 as the winner of the round' do
+  it 'sets player 2 as the winner of the round' do
     player_1_card = loser_card
     player_2_card = best_card
     round_result = WarRoundResult.new(best_card, player_1_card, player_2_card, players)
