@@ -70,4 +70,9 @@ describe 'WarRoundResult' do
     round_result = WarRoundResult.new(best_card, loser_card, best_card, players, table_cards_count)
     expect(round_result.get_loser_card(best_card, loser_card, best_card)).to eq loser_card
   end
+
+  it 'returns the losing card, when the losing card is the player 2 card' do
+    round_result = WarRoundResult.new(best_card, best_card, loser_card, players, table_cards_count)
+    expect(round_result.get_loser_card(best_card, best_card, loser_card)).to eq loser_card
+  end
 end
