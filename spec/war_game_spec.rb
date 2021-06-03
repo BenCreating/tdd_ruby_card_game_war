@@ -6,6 +6,19 @@ require_relative '../lib/playing_card'
 describe 'WarGame' do
   let(:game) { WarGame.new }
 
+  def create_player(name = 'Anonymous', card_ranks = [])
+    create_cards(card_ranks)
+    WarPlayer.new(name: name, cards: CardDeck.new(cards))
+  end
+
+  def create_cards(card_ranks = [])
+    cards = []
+    card_ranks.each do |rank|
+      cards << PlayingCard.new(rank)
+    end
+    cards
+  end
+
   context 'start' do
     it 'returns an array of the players' do
       game.start
@@ -20,23 +33,22 @@ describe 'WarGame' do
 
     it 'starts a game with a specified deck' do
       deck = ShufflingDeck.new([PlayingCard.new('A'), PlayingCard.new('2')])
-      game.start(deck)
+      game.start(deck: deck)
       expect([game.players.first.play_card.rank, game.players.last.play_card.rank]).to match_array ['A', '2']
       deck2 = ShufflingDeck.new([PlayingCard.new('J'), PlayingCard.new('Q')])
-      game.start(deck2)
+      game.start(deck: deck2)
       expect([game.players.first.play_card.rank, game.players.last.play_card.rank]).to match_array ['J', 'Q']
     end
 
     it 'starts the game with specified player hands' do
-      deck = ShufflingDeck.new([])
-      player1_hand = CardDeck.new([PlayingCard.new('3')])
-      player2_hand = CardDeck.new([PlayingCard.new('K')])
-      game.start(deck, player1_hand, player2_hand)
+      player_1 = WarPlayer.new(cards: CardDeck.new([PlayingCard.new('3')]))
+      player_2 = WarPlayer.new(cards: CardDeck.new([PlayingCard.new('K')]))
+      game.start(deck: deck, player_1: player_1, player_2: player_2)
       expect(game.players.first.play_card.rank).to eq '3'
       expect(game.players.last.play_card.rank).to eq 'K'
-      player1_hand2 = CardDeck.new([PlayingCard.new('10')])
-      player2_hand2 = CardDeck.new([PlayingCard.new('5')])
-      game.start(deck, player1_hand2, player2_hand2)
+      player_1b = WarPlayer.new(cards: CardDeck.new([PlayingCard.new('10')]))
+      player_2b = WarPlayer.new(cards: CardDeck.new([PlayingCard.new('5')]))
+      game.start(deck: deck, player_1: player_1, player_1: player_2)
       expect(game.players.first.play_card.rank).to eq '10'
       expect(game.players.last.play_card.rank).to eq '5'
     end
