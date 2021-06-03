@@ -2,8 +2,9 @@ require_relative '../lib/war_socket_client'
 
 describe 'WarSocketClient' do
   it 'creates a client and opens a socket on the right port' do
-    client = WarSocketClient.new()
+    client = WarSocketClient.new(3336)
     expect(client.socket).to eq nil
+    client.close
   end
 end
 
