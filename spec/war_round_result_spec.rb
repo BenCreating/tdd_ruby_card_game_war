@@ -75,4 +75,9 @@ describe 'WarRoundResult' do
     round_result = WarRoundResult.new(best_card, best_card, loser_card, players, table_cards_count)
     expect(round_result.get_loser_card(best_card, best_card, loser_card)).to eq loser_card
   end
+
+  it 'returns nil for the losing card, when there is a tie' do
+    round_result = WarRoundResult.new(nil, best_card, best_card, players, table_cards_count)
+    expect(round_result.get_loser_card(nil, best_card, best_card)).to eq nil
+  end
 end
