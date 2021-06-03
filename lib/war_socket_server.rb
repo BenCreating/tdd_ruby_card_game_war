@@ -65,7 +65,7 @@ class WarSocketServer
       client1 = @clients[0]
       client2 = @clients[1]
       game = WarGame.new
-      game.start(ShufflingDeck.new, CardDeck.new, CardDeck.new, client1.game_player.name, client2.game_player.name, client1.client, client2.client)
+      game.start(player_1: client1.game_player, player_2: client2.game_player)
       @games << game
       @clients.first(2).each do |player|
         player.client.puts 'Game started, type anything to start'
