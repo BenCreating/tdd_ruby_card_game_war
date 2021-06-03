@@ -35,6 +35,7 @@ class WarSocketServer
     game_clients = lookup_clients(game)
     game_clients.each do |client_interface|
       client_interface.client.puts(round_result)
+      client_interface.clear_ready
     end
   end
 
