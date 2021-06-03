@@ -16,4 +16,11 @@ describe PlayerInterface do
     player.set_ready
     expect(player.ready).to eq true
   end
+
+  it 'clears the ready flag' do
+    player = PlayerInterface.new(client, player_name)
+    player.set_ready
+    player.clear_ready
+    expect(player.ready).to eq false
+  end
 end
