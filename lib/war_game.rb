@@ -31,6 +31,7 @@ class WarGame
     @table_cards << player_1_card << player_2_card
     best_card = better_card(player_1_card, player_2_card)
     round_result = WarRoundResult.new(best_card, player_1_card, player_2_card, players, @table_cards.count)
+    award_cards_to_winner(round_result.winner)
     round_result.description
   end
 
