@@ -55,7 +55,7 @@ class WarSocketServer
 
   def create_game(client1, client2)
     game = WarGame.new
-    @games << GameInterface.new(client1, client2)
+    @games << WarGameInterface.new(client1, client2)
     game.start(player_1: client1.game_player, player_2: client2.game_player)
   end
 
