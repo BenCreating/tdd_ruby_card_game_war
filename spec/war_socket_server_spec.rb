@@ -53,6 +53,18 @@ describe WarSocketServer do
     client
   end
 
+  def capture_output(clients)
+    clients.each do |client|
+      client.capture_output
+    end
+  end
+
+  def provide_input(clients)
+    clients.each do |client|
+      client.provide_input('play')
+    end
+  end
+
   it "is not listening on a port before it is started"  do
     expect {MockWarSocketClient.new(@server.port_number)}.to raise_error(Errno::ECONNREFUSED)
   end
@@ -71,8 +83,7 @@ describe WarSocketServer do
     clients = setup_server_and_players()
     client1 = clients.first
     client2 = clients.last
-    client1.capture_output
-    client2.capture_output
+    capture_output(clients)
     expect(client1.output).to eq 'Game started, type anything to start'
     expect(client2.output).to eq 'Game started, type anything to start'
   end
@@ -81,13 +92,10 @@ describe WarSocketServer do
     clients = setup_server_and_players()
     client1 = clients.first
     client2 = clients.last
-    client1.capture_output # clear out the game started message
-    client2.capture_output # clear out the game started message
-    client1.provide_input('play')
-    client2.provide_input('play')
+    capture_output(clients) # clear out the game started message
+    provide_input(clients)
     @server.update_game(@server.games.first)
-    client1.capture_output
-    client2.capture_output
+    capture_output(clients)
     expect(client1.output).not_to eq nil
     expect(client2.output).not_to eq nil
   end
@@ -96,13 +104,10 @@ describe WarSocketServer do
     clients = setup_server_and_players()
     client1 = clients.first
     client2 = clients.last
-    client1.capture_output # clear out the game started message
-    client2.capture_output # clear out the game started message
-    client1.provide_input('play')
-    client2.provide_input('play')
+    capture_output(clients) # clear out the game started message
+    provide_input(clients)
     @server.update_game(@server.games.first)
-    client1.capture_output
-    client2.capture_output
+    capture_output(clients)
     waiting_message = 'Waiting for Player'
     expect(client1.output.include?(waiting_message)).to eq false
     expect(client2.output.include?(waiting_message)).to eq false
