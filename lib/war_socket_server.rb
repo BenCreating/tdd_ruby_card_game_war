@@ -31,10 +31,6 @@ class WarSocketServer
     end
   end
 
-  def update_game(game)
-
-  end
-
   def capture_output(client, delay=0.1)
     sleep(delay)
     client.read_nonblock(1000).chomp # not gets which blocks
@@ -51,30 +47,18 @@ class WarSocketServer
   end
 
   def create_game_if_possible
+    if @clients.count == 2
+      create_game(@clients[-1], clients[-2])
+    end
+  end
 
+  def create_game(client1, client2)
+    game = WarGame.new
+    @games << GameInterface.new(client1, client2)
+    game.start(player_1: client1.game_player, player_2: client2.game_player)
   end
 
   def stop
     @server.close if @server
-  end
-
-  def lookup_clients(game)
-    game_clients = []
-    players = game.players
-    players.each do |player|
-      game_clients << find_client_by_player(player)
-    end
-    game_clients
-  end
-
-  def find_client_by_player(player)
-    player_client = nil
-    @clients.each do |client|
-      if client.game_player == player
-        player_client = client
-        break
-      end
-    end
-    player_client
   end
 end
