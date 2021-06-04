@@ -6,10 +6,10 @@ require_relative 'shuffling_deck'
 require_relative 'war_game_interface'
 
 class WarSocketServer
-  attr_reader :games
+  attr_reader :games, :player_interface_queue
 
   def initialize
-    @clients = []
+    @player_interface_queue = []
     @games = []
   end
 
@@ -19,7 +19,7 @@ class WarSocketServer
 
   def accept_new_client(player_name = "Random Player")
     client = @server.accept_nonblock
-    @clients << PlayerInterface.new(client, player_name)
+    player_interface_queue << PlayerInterface.new(client, player_name)
     puts "Client #{player_name} connected"
   rescue IO::WaitReadable, Errno::EINTR
     puts "No client to accept"
@@ -45,8 +45,8 @@ class WarSocketServer
   end
 
   def create_game_if_possible
-    if @clients.count == 2
-      game = create_game(@clients[-1], @clients[-2])
+    if player_interface_queue.count >= 2
+      game = create_game(player_interface_queue.pop, player_interface_queue.pop)
       game.player_interfaces.each do |player_interface|
         player_interface.client.puts 'Game started, type anything to start'
       end
