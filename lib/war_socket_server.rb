@@ -48,7 +48,7 @@ class WarSocketServer
 
   def create_game_if_possible
     if @clients.count == 2
-      create_game(@clients[-1], clients[-2])
+      create_game(@clients[-1], @clients[-2])
     end
   end
 
