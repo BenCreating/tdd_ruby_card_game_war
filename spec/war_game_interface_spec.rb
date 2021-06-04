@@ -20,9 +20,9 @@ class MockPlayerInterface
   attr_reader :ready
   attr_reader :client
 
-  def initialize
+  def initialize(name = 'Anonymous')
     @client = GameInterfaceMockWarSocketClient.new
-    @game_player = WarPlayer.new
+    @game_player = WarPlayer.new(name: name)
     @ready = false
   end
 
