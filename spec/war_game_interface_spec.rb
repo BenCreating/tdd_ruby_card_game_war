@@ -58,4 +58,11 @@ describe 'WarGameInterface' do
     game_interface.update_game
     expect(player_interface_1.client.capture_output).not_to eq nil
   end
+
+  it 'does not play a round if both players are not ready' do
+    game_interface = WarGameInterface.new(player_interface_1, player_interface_2)
+    player_interface_1.set_ready
+    game_interface.update_game
+    expect(player_interface_1.client.capture_output).to eq nil
+  end
 end
