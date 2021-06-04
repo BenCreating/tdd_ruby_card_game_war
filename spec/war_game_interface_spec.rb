@@ -1,8 +1,43 @@
 require_relative '../lib/war_game_interface'
+require_relative '../lib/war_player'
+
+class MockWarSocketClient
+  def initialize
+    @input = nil
+  end
+
+  def puts(input)
+    @input = input
+  end
+
+  def capture_output
+    @input
+  end
+end
+
+class MockPlayerInterface
+  attr_reader :game_player
+  attr_reader :ready
+  attr_reader :client
+
+  def initialize
+    @client = MockWarSocketClient.new
+    @game_player = WarPlayer.new
+    @ready = false
+  end
+
+  def set_ready
+    @ready = true
+  end
+
+  def clear_ready
+    @ready = false
+  end
+end
 
 describe 'WarGameInterface' do
-  let(:player_interface_1) { 'interface 1' }
-  let(:player_interface_2) { 'interface 2' }
+  let(:player_interface_1) { MockPlayerInterface.new }
+  let(:player_interface_2) { MockPlayerInterface.new }
 
   it 'creates a new interface which generates a WarGame' do
     game_interface = WarGameInterface.new(player_interface_1, player_interface_2)
