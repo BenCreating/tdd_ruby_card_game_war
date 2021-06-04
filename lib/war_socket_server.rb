@@ -6,6 +6,8 @@ require_relative 'shuffling_deck'
 require_relative 'war_game_interface'
 
 class WarSocketServer
+  attr_reader :games
+
   def initialize
     @clients = []
     @games = []
@@ -36,10 +38,6 @@ class WarSocketServer
     client.read_nonblock(1000).chomp # not gets which blocks
   rescue IO::WaitReadable
     nil
-  end
-
-  def games
-    @games
   end
 
   def start
