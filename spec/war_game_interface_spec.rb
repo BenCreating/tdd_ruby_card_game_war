@@ -10,9 +10,9 @@ describe 'WarGameInterface' do
     expect(game_interface.game.players.count).to eq 2
   end
 
-  it 'creates a new interface and store the clients' do
+  it 'creates a new interface and stores the clients' do
     game_interface = WarGameInterface.new(player_interface_1, player_interface_2)
-    expect(game_interface.player_interface_1).to eq player_interface_1
-    expect(game_interface.player_interface_2).to eq player_interface_2
+    expect(game_interface.player_interfaces.first).to eq player_interface_1
+    expect(game_interface.player_interfaces.last).to eq player_interface_2
   end
 end
