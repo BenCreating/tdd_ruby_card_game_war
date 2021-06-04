@@ -1,6 +1,8 @@
 require_relative 'playing_card'
 
 class CardDeck
+  attr_reader :cards
+
   RANKS = %w(A 2 3 4 5 6 7 8 9 10 J Q K)
 
   def initialize(cards = default_cards())
@@ -8,15 +10,15 @@ class CardDeck
   end
 
   def cards_left
-    @cards.count
+    cards.count
   end
 
   def deal
-    @cards.pop
+    cards.pop
   end
 
   def add_card(card)
-    @cards.unshift(card)
+    cards.unshift(card)
   end
 
   private

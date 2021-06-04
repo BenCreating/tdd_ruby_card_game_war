@@ -1,9 +1,7 @@
 require_relative 'war_player'
 
 class PlayerInterface
-  attr_reader :client
-  attr_reader :game_player
-  attr_reader :ready
+  attr_reader :client, :game_player, :ready
 
   def initialize(client, player_name = 'Anonymous')
     @client = client

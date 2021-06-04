@@ -4,8 +4,7 @@ require_relative 'shuffling_deck'
 require_relative 'war_round_result'
 
 class WarGame
-  attr_reader :players
-  attr_reader :table_cards
+  attr_reader :players, :table_cards, :deck
 
   def start(deck: ShufflingDeck.new, player_1: WarPlayer.new(name: 'Alice', cards: CardDeck.new([])), player_2: WarPlayer.new(name: 'Bob', cards: CardDeck.new([])))
     @deck = deck
@@ -15,22 +14,22 @@ class WarGame
   end
 
   def deck_card_count
-    @deck.cards_left
+    deck.cards_left
   end
 
   def play_round
-    player_1_card = @players.first.play_card
-    player_2_card = @players.last.play_card
-    @table_cards << player_1_card << player_2_card
+    player_1_card = players.first.play_card
+    player_2_card = players.last.play_card
+    table_cards << player_1_card << player_2_card
     best_card = better_card(player_1_card, player_2_card)
-    round_result = WarRoundResult.new(best_card, player_1_card, player_2_card, players, @table_cards.count)
+    round_result = WarRoundResult.new(best_card, player_1_card, player_2_card, players, table_cards.count)
     award_cards_to_winner(round_result.winner)
     round_result.description
   end
 
   def winner
     players_still_in_game = []
-    @players.each do |player|
+    players.each do |player|
       players_still_in_game << player if player.card_count > 0
     end
 
@@ -38,10 +37,10 @@ class WarGame
   end
 
   def deal_game_cards
-    cards_per_player = @deck.cards_left/@players.count
-    @players.each do |player|
+    cards_per_player = deck.cards_left/players.count
+    players.each do |player|
       cards_per_player.times do
-        card = @deck.deal
+        card = deck.deal
         player.pick_up_card(card)
       end
     end
@@ -67,10 +66,7 @@ class WarGame
 
   def award_cards_to_winner(player)
     if player
-      @table_cards.count.times do
-        card = @table_cards.pop
-        player.pick_up_card(card)
-      end
+      table_cards.count.times { player.pick_up_card(table_cards.pop) }
     end
   end
 end
