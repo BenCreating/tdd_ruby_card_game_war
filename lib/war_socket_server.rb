@@ -6,11 +6,11 @@ require_relative 'shuffling_deck'
 require_relative 'war_game_interface'
 
 class WarSocketServer
-  attr_reader :games, :player_interface_queue
+  attr_reader :game_interfaces, :player_interface_queue
 
   def initialize
     @player_interface_queue = []
-    @games = []
+    @game_interfaces = []
   end
 
   def port_number
@@ -55,7 +55,7 @@ class WarSocketServer
 
   def create_game(client1, client2)
     game_interface = WarGameInterface.new(client1, client2)
-    @games << game_interface
+    game_interfaces << game_interface
     game_interface
   end
 

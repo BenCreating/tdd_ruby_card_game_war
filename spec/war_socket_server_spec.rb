@@ -73,10 +73,10 @@ describe WarSocketServer do
     @server.start
     client1 = create_and_accept_client("Player 1")
     @server.create_game_if_possible
-    expect(@server.games.count).to be 0
+    expect(@server.game_interfaces.count).to be 0
     client2 = create_and_accept_client("Player 2")
     @server.create_game_if_possible
-    expect(@server.games.count).to be 1
+    expect(@server.game_interfaces.count).to be 1
   end
 
   it 'reports that the game has started' do
