@@ -1,5 +1,7 @@
 require_relative '../lib/war_game_interface'
 require_relative '../lib/war_player'
+require_relative '../lib/card_deck'
+require_relative '../lib/playing_card'
 
 class GameInterfaceMockWarSocketClient
   def initialize
@@ -20,9 +22,9 @@ class MockPlayerInterface
   attr_reader :ready
   attr_reader :client
 
-  def initialize(name = 'Anonymous')
+  def initialize(name = 'Anonymous', cards = CardDeck.new([]))
     @client = GameInterfaceMockWarSocketClient.new
-    @game_player = WarPlayer.new(name: name)
+    @game_player = WarPlayer.new(name: name, cards: cards)
     @ready = false
   end
 
