@@ -24,10 +24,9 @@ class WarSocketServer
   end
 
   def check_ready_players(game)
-    game_clients = lookup_clients(game)
-    game_clients.each do |player|
-      if capture_output(player.client)
-        player.set_ready
+    game.player_interfaces.each do |player_interface|
+      if capture_output(player_interface.client)
+        player_interface.set_ready
       end
     end
   end
