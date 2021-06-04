@@ -6,5 +6,16 @@ class WarGameInterface
   def initialize(player_interface_1, player_interface_2)
     @player_interfaces = [player_interface_1, player_interface_2]
     @game = WarGame.new
+    @game.start
+  end
+
+  def update_game
+    if player_interfaces.first.ready && player_interfaces.last.ready
+      round_result = @game.play_round
+      player_interfaces.each do |interface|
+        interface.client.puts(round_result)
+        interface.clear_ready
+      end
+    end
   end
 end
