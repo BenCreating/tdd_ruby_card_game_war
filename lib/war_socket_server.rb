@@ -6,7 +6,7 @@ require_relative 'shuffling_deck'
 require_relative 'war_game_interface'
 
 class WarSocketServer
-  attr_reader :game_interfaces, :player_interface_queue
+  attr_reader :game_interfaces, :player_interface_queue, :server
 
   def initialize
     @player_interface_queue = []
@@ -18,7 +18,7 @@ class WarSocketServer
   end
 
   def accept_new_client(player_name = "Random Player")
-    client = @server.accept_nonblock
+    client = server.accept_nonblock
     player_interface_queue << PlayerInterface.new(client, player_name)
     puts "Client #{player_name} connected"
   rescue IO::WaitReadable, Errno::EINTR
@@ -60,6 +60,6 @@ class WarSocketServer
   end
 
   def stop
-    @server.close if @server
+    server.close if server
   end
 end
