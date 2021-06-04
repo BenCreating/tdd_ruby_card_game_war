@@ -73,9 +73,11 @@ class WarGame
   end
 
   def award_cards_to_winner(player)
-    @table_cards.count.times do
-      card = @table_cards.pop
-      player.pick_up_card(card)
+    if player
+      @table_cards.count.times do
+        card = @table_cards.pop
+        player.pick_up_card(card)
+      end
     end
   end
 end
