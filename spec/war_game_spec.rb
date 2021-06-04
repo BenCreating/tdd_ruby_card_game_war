@@ -170,4 +170,10 @@ describe 'WarGame' do
       expect(game.winner).to eq game.players.last
     end
   end
+
+  it 'changes the order of the cards to avoid a loop' do
+    mixed_cards = game.mix_up_cards([PlayingCard.new('2'), PlayingCard.new('3')])
+    expect(mixed_cards.first.rank).to eq '3'
+    expect(mixed_cards.last.rank).to eq '2'
+  end
 end

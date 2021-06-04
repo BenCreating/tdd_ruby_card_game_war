@@ -69,4 +69,13 @@ class WarGame
       table_cards.count.times { player.pick_up_card(table_cards.pop) }
     end
   end
+
+  def mix_up_cards(cards)
+    mixed_cards = cards.shuffle
+    # in the rare case that the order is the same, move one from the beginning to the end
+    if mixed_cards = cards
+      card = mixed_cards.shift
+      mixed_cards.push(card)
+    end
+  end
 end
