@@ -3,6 +3,7 @@ require_relative 'war_game'
 require_relative 'player_interface'
 require_relative 'card_deck'
 require_relative 'shuffling_deck'
+require_relative 'war_game_interface'
 
 class WarSocketServer
   def initialize
