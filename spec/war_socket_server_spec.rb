@@ -87,29 +87,4 @@ describe WarSocketServer do
     expect(client1.output).to eq 'Game started, type anything to start'
     expect(client2.output).to eq 'Game started, type anything to start'
   end
-
-  context 'test playing' do
-    before(:each) do
-      @clients = setup_server_and_players()
-      @client1 = clients.first
-      @client2 = clients.last
-      capture_output(clients) # clear out the game started message
-      provide_input(clients)
-    end
-
-    it 'plays a round' do
-      @server.update_game(@server.games.first)
-      capture_output(@clients)
-      expect(@client1.output).not_to eq nil
-      expect(@client2.output).not_to eq nil
-    end
-
-    it 'play cards if both players are ready' do
-      @server.update_game(@server.games.first)
-      capture_output(@clients)
-      waiting_message = 'Waiting for Player'
-      expect(@client1.output.include?(waiting_message)).to eq false
-      expect(@client2.output.include?(waiting_message)).to eq false
-    end
-  end
 end
