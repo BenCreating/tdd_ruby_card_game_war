@@ -170,11 +170,4 @@ describe 'WarGame' do
       expect(game.winner).to eq game.players.last
     end
   end
-
-  it 'starts a game for a server' do
-    player_1 = WarPlayer.new
-    player_2 = WarPlayer.new
-    game.start_server_game(player_1, player_2)
-    expect(game.players.count).to eq 2
-  end
 end

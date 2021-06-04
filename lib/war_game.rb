@@ -14,13 +14,6 @@ class WarGame
     deal_game_cards()
   end
 
-  def start_server_game(player_1, player_2)
-    @deck = ShufflingDeck.new
-    @players = [player_1, player_2]
-
-    deal_game_cards()
-  end
-
   def deck_card_count
     @deck.cards_left
   end
