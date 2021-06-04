@@ -38,8 +38,16 @@ class MockPlayerInterface
 end
 
 describe 'WarGameInterface' do
-  let(:player_interface_1) { MockPlayerInterface.new }
-  let(:player_interface_2) { MockPlayerInterface.new }
+  def create_hand(card_ranks)
+    cards = []
+    card_ranks.each do |rank|
+      cards << PlayingCard.new(rank)
+    end
+    CardDeck.new(cards)
+  end
+
+  let(:player_interface_1) { MockPlayerInterface.new('Winning Player', create_hand(['10'])) }
+  let(:player_interface_2) { MockPlayerInterface.new('Losing Player', create_hand(['3'])) }
 
   it 'creates a new interface which generates a WarGame' do
     game_interface = WarGameInterface.new(player_interface_1, player_interface_2)
