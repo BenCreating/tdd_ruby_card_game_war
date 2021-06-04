@@ -88,34 +88,28 @@ describe WarSocketServer do
     expect(client2.output).to eq 'Game started, type anything to start'
   end
 
-  it 'plays a round' do
-    clients = setup_server_and_players()
-    client1 = clients.first
-    client2 = clients.last
-    capture_output(clients) # clear out the game started message
-    provide_input(clients)
-    @server.update_game(@server.games.first)
-    capture_output(clients)
-    expect(client1.output).not_to eq nil
-    expect(client2.output).not_to eq nil
-  end
+  context 'test playing' do
+    before(:each) do
+      @clients = setup_server_and_players()
+      @client1 = clients.first
+      @client2 = clients.last
+      capture_output(clients) # clear out the game started message
+      provide_input(clients)
+    end
 
-  it 'play cards if both players are ready' do
-    clients = setup_server_and_players()
-    client1 = clients.first
-    client2 = clients.last
-    capture_output(clients) # clear out the game started message
-    provide_input(clients)
-    @server.update_game(@server.games.first)
-    capture_output(clients)
-    waiting_message = 'Waiting for Player'
-    expect(client1.output.include?(waiting_message)).to eq false
-    expect(client2.output.include?(waiting_message)).to eq false
-  end
+    it 'plays a round' do
+      @server.update_game(@server.games.first)
+      capture_output(@clients)
+      expect(@client1.output).not_to eq nil
+      expect(@client2.output).not_to eq nil
+    end
 
-  # Add more tests to make sure the game is being played
-  # For example:
-  #   make sure the mock client gets appropriate output
-  #   make sure the next round isn't played until both clients say they are ready to play
-  #   ...
+    it 'play cards if both players are ready' do
+      @server.update_game(@server.games.first)
+      capture_output(@clients)
+      waiting_message = 'Waiting for Player'
+      expect(@client1.output.include?(waiting_message)).to eq false
+      expect(@client2.output.include?(waiting_message)).to eq false
+    end
+  end
 end
