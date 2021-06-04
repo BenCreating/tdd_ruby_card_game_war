@@ -65,4 +65,10 @@ describe 'WarGameInterface' do
     game_interface.update_game
     expect(player_interface_1.client.capture_output).to eq nil
   end
+
+  it 'allows players to be specified' do
+    game_interface = WarGameInterface.new(player_interface_1, player_interface_2)
+    expect(game_interface.game.players.first.name).to eq player_interface_1.name
+    expect(game_interface.game.players.last.name).to eq player_interface_2.name
+  end
 end
