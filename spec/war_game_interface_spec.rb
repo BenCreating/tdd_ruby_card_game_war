@@ -1,7 +1,7 @@
 require_relative '../lib/war_game_interface'
 require_relative '../lib/war_player'
 
-class MockWarSocketClient
+class GameInterfaceMockWarSocketClient
   def initialize
     @input = nil
   end
@@ -21,7 +21,7 @@ class MockPlayerInterface
   attr_reader :client
 
   def initialize
-    @client = MockWarSocketClient.new
+    @client = GameInterfaceMockWarSocketClient.new
     @game_player = WarPlayer.new
     @ready = false
   end
