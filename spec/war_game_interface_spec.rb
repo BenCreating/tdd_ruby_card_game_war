@@ -78,7 +78,7 @@ describe 'WarGameInterface' do
 
   it 'allows players to be specified' do
     game_interface = WarGameInterface.new(player_interface_1, player_interface_2)
-    expect(game_interface.game.players.first.name).to eq player_interface_1.name
-    expect(game_interface.game.players.last.name).to eq player_interface_2.name
+    expect(game_interface.game.players.first.name).to eq player_interface_1.game_player.name
+    expect(game_interface.game.players.last.name).to eq player_interface_2.game_player.name
   end
 end

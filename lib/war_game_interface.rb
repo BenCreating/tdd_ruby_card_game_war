@@ -6,7 +6,7 @@ class WarGameInterface
   def initialize(player_interface_1, player_interface_2)
     @player_interfaces = [player_interface_1, player_interface_2]
     @game = WarGame.new
-    @game.start
+    @game.start(player_1: player_interface_1.game_player, player_2: player_interface_2.game_player)
   end
 
   def update_game
