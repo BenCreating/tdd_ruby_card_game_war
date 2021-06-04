@@ -46,14 +46,17 @@ class WarSocketServer
 
   def create_game_if_possible
     if @clients.count == 2
-      create_game(@clients[-1], @clients[-2])
+      game = create_game(@clients[-1], @clients[-2])
+      game.player_interfaces.each do |player_interface|
+        player_interface.client.puts 'Game started, type anything to start'
+      end
     end
   end
 
   def create_game(client1, client2)
-    game = WarGame.new
-    @games << WarGameInterface.new(client1, client2)
-    game.start(player_1: client1.game_player, player_2: client2.game_player)
+    game_interface = WarGameInterface.new(client1, client2)
+    @games << game_interface
+    game_interface
   end
 
   def stop
