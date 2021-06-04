@@ -6,6 +6,6 @@ class WarSocketClient
   end
 
   def close
-    @socket.close if @socket
+    socket.close if socket
   end
 end
