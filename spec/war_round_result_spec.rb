@@ -55,6 +55,11 @@ describe 'WarRoundResult' do
     expect(round_result.description).to eq "Both play #{tied_cards.first.rank}! Each player adds #{WarGame::EXTRA_TIE_CARDS} more cards. There are #{final_card_count} cards on the table."
   end
 
+  it 'has the correct number of cards on the table' do
+    round_result = WarRoundResult.new(tied_cards, players)
+    expect(round_result.table_cards.count).to eq 2
+  end
+
   context 'best and worst cards' do
     let(:round_result) { WarRoundResult.new(player_2_wins_cards, players) }
     let(:best_card) { MockPlayingCard.new('10') }
