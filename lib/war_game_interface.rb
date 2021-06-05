@@ -18,4 +18,11 @@ class WarGameInterface
       end
     end
   end
+
+  def run_game(game)
+    until game.winner do
+      game.play_round
+    end
+    puts "Winner: #{game.winner.name}"
+  end
 end
