@@ -7,14 +7,9 @@ class WarGame
   attr_reader :players, :table_cards, :deck
 
   def start(deck: ShufflingDeck.new, player_1: WarPlayer.new(name: 'Alice', cards: CardDeck.new([])), player_2: WarPlayer.new(name: 'Bob', cards: CardDeck.new([])))
-    @deck = deck
     @players = [player_1, player_2]
     @table_cards = []
-    deal_game_cards()
-  end
-
-  def deck_card_count
-    deck.cards_left
+    deal_game_cards(deck)
   end
 
   def play_round
@@ -36,7 +31,7 @@ class WarGame
     return players_still_in_game.pop if players_still_in_game.count == 1
   end
 
-  def deal_game_cards
+  def deal_game_cards(deck)
     cards_per_player = deck.cards_left/players.count
     players.each do |player|
       cards_per_player.times do
