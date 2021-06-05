@@ -7,8 +7,8 @@ server.start
 loop do
   sleep(delay)
   server.accept_new_client
-  game = server.create_game_if_possible
-  if game
+  game_interface = server.create_game_if_possible
+  if game_interface
     # thread code goes here
   end
 end
