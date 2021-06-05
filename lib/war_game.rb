@@ -6,6 +6,8 @@ require_relative 'war_round_result'
 class WarGame
   attr_reader :players
 
+  EXTRA_TIE_CARDS = 3
+
   def start(deck: ShufflingDeck.new, player_1: WarPlayer.new(name: 'Alice', cards: CardDeck.new([])), player_2: WarPlayer.new(name: 'Bob', cards: CardDeck.new([])))
     @players = [player_1, player_2]
     deck.shuffle

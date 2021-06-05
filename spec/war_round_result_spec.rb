@@ -1,4 +1,5 @@
 require_relative '../lib/war_round_result'
+require_relative '../lib/war_game'
 
 class MockPlayingCard
   attr_reader :rank
@@ -61,7 +62,8 @@ describe 'WarRoundResult' do
     player_1_card = best_card
     player_2_card = best_card
     round_result = WarRoundResult.new(player_1_card, player_2_card, players, table_cards_count)
-    expect(round_result.description).to eq "Both play #{best_card.rank}! There are 2 cards on the table."
+    final_card_count = (WarGame::EXTRA_TIE_CARDS * 2) + 2
+    expect(round_result.description).to eq "Both play #{best_card.rank}! Each player adds #{WarGame::EXTRA_TIE_CARDS} more cards. There are #{final_card_count} cards on the table."
   end
 
   it 'returns the losing card, when the losing card is the player 1 card' do

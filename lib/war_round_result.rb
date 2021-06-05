@@ -1,3 +1,5 @@
+require_relative 'war_game'
+
 class WarRoundResult
   attr_reader :winner, :description
 
@@ -50,7 +52,7 @@ class WarRoundResult
 
   def write_description(winner_card, loser_card, table_cards_count, tied_card_rank)
     if winner_card == nil # the round is a tie
-      "Both play #{tied_card_rank}! There are #{table_cards_count} cards on the table."
+      "Both play #{tied_card_rank}! Each player adds #{WarGame::EXTRA_TIE_CARDS} more cards. There are #{table_cards_count} cards on the table."
     else
       "Player #{winner.name} beat #{loser_card.rank} with #{winner_card.rank}"
     end
