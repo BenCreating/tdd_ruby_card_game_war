@@ -1,11 +1,9 @@
 require_relative 'war_game'
 
 class WarRoundResult
-  attr_reader :winner, :description, :table_cards
+  attr_reader :winner, :description
 
   def initialize(table_cards, players)
-    @table_cards = table_cards
-
     player_1_card = table_cards[-2]
     player_2_card = table_cards[-1]
 

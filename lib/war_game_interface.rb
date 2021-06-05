@@ -1,10 +1,10 @@
 require_relative 'war_game'
 class WarGameInterface
-  attr_reader :game
-  attr_reader :player_interfaces
+  attr_reader :game, :player_interfaces
 
   def initialize(player_interface_1, player_interface_2)
     @player_interfaces = [player_interface_1, player_interface_2]
+    @last_round_table_cards = []
     @game = WarGame.new
     game.start(player_1: player_interface_1.game_player, player_2: player_interface_2.game_player)
   end

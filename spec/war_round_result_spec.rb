@@ -49,15 +49,10 @@ describe 'WarRoundResult' do
     expect(round_result.description).to eq "Player #{player_2.name} beat #{player_2_wins_cards.first.rank} with #{player_2_wins_cards.last.rank}"
   end
 
-  it 'sets the description, a tied round' do
+  it 'sets the description of a tied round' do
     round_result = WarRoundResult.new(tied_cards, players)
     final_card_count = (WarGame::EXTRA_TIE_CARDS * 2) + 2
     expect(round_result.description).to eq "Both play #{tied_cards.first.rank}! Each player adds #{WarGame::EXTRA_TIE_CARDS} more cards. There are #{final_card_count} cards on the table."
-  end
-
-  it 'has the correct number of cards on the table' do
-    round_result = WarRoundResult.new(tied_cards, players)
-    expect(round_result.table_cards.count).to eq 2
   end
 
   context 'best and worst cards' do

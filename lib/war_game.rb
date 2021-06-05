@@ -5,30 +5,30 @@ require_relative 'war_round_result'
 
 class WarGame
   attr_reader :players
+  attr_accessor :last_round_table_cards
 
   EXTRA_TIE_CARDS = 3
 
   def start(deck: ShufflingDeck.new, player_1: WarPlayer.new(name: 'Alice', cards: CardDeck.new([])), player_2: WarPlayer.new(name: 'Bob', cards: CardDeck.new([])))
     @players = [player_1, player_2]
+    @last_round_table_cards = []
     deck.shuffle
     deal_game_cards(deck)
   end
 
-  def play_round(last_round_table_cards = [])
-    table_cards = play_all_round_cards(last_round_table_cards)
+  def play_round
+    table_cards = play_all_round_cards()
+    self.last_round_table_cards = table_cards
     round_result = WarRoundResult.new(table_cards, players)
     award_cards_to_winner(round_result.winner, table_cards)
     round_result.description
   end
 
-  def play_all_round_cards(last_round_table_cards = [])
+  def play_all_round_cards
     first_cards = [players.first.play_card, players.last.play_card]
     round_cards = []
     if first_cards[0].rank == first_cards[1].rank
-      EXTRA_TIE_CARDS.times do
-        round_cards << players.first.play_card
-        round_cards << players.last.play_card
-      end
+      EXTRA_TIE_CARDS.times { round_cards = round_cards + [players.first.play_card, players.last.play_card] }
     end
     # put the first cards on the end so if there were already cards on the table we can find the cards that were compared in this round
     last_round_table_cards + round_cards + first_cards
@@ -54,12 +54,12 @@ class WarGame
   end
 
   def award_cards_to_winner(player, table_cards)
-    if player
+    if player # make sure it wasn't a tie
       table_cards = mix_up_cards(table_cards)
       table_cards.count.times do
-        card = table_cards.pop
-        player.pick_up_card(card)
+        player.pick_up_card(table_cards.pop)
       end
+      self.last_round_table_cards = []
     end
   end
 
