@@ -10,7 +10,7 @@ class WarGameInterface
   end
 
   def update_game
-    if player_interfaces.first.ready && player_interfaces.last.ready
+    if players_ready?
       round_result = game.play_round
       player_interfaces.each do |interface|
         interface.client.puts(round_result)
@@ -21,7 +21,7 @@ class WarGameInterface
 
   def run_game
     until game.winner do
-      game.play_round
+      update_game
     end
     puts "Winner: #{game.winner.name}"
   end
