@@ -1,29 +1,49 @@
 class WarRoundResult
   attr_reader :winner, :description
 
-  def initialize(best_card, player_1_card, player_2_card, players, table_cards_count)
-    @winner = get_winner(best_card, player_1_card, player_2_card, players)
-
-    loser_card = get_loser_card(best_card, player_1_card, player_2_card)
-    @description = write_description(best_card, loser_card, table_cards_count, player_1_card.rank)
+  def initialize(player_1_card, player_2_card, players, table_cards_count)
+    winner_card = better_card(player_1_card, player_2_card)
+    @winner = get_winner(winner_card, player_1_card, player_2_card, players)
+    loser_card = get_loser_card(winner_card, player_1_card, player_2_card)
+    @description = write_description(winner_card, loser_card, table_cards_count, player_1_card.rank)
   end
 
-  def get_winner(best_card, player_1_card, player_2_card, players)
-    if best_card == player_1_card
+  def better_card(card1, card2)
+    value1 = value_card(card1)
+    value2 = value_card(card2)
+    if value1 > value2
+      card1
+    elsif value2 > value1
+      card2
+    end
+  end
+
+  def value_card(card)
+    if ['A', 'J', 'Q', 'K'].include?(card.rank)
+      {'J' => 11, 'Q' => 12, 'K' => 13, 'A' => 14}.fetch(card.rank)
+    elsif ['2', '3', '4', '5', '6', '7', '8', '9', '10'].include?(card.rank)
+      card.rank.to_i
+    else
+      0
+    end
+  end
+
+  def get_winner(winner_card, player_1_card, player_2_card, players)
+    if winner_card == player_1_card
       players.first
-    elsif best_card == player_2_card
+    elsif winner_card == player_2_card
       players.last
     else
       nil
     end
   end
 
-  def get_loser_card(best_card, player_1_card, player_2_card)
-    if best_card == nil
+  def get_loser_card(winner_card, player_1_card, player_2_card)
+    if winner_card == nil
       nil
-    elsif best_card != player_1_card
+    elsif winner_card != player_1_card
       player_1_card
-    elsif best_card != player_2_card
+    elsif winner_card != player_2_card
       player_2_card
     end
   end
