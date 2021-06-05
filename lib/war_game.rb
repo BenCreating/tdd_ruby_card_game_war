@@ -4,21 +4,21 @@ require_relative 'shuffling_deck'
 require_relative 'war_round_result'
 
 class WarGame
-  attr_reader :players, :table_cards, :deck
+  attr_reader :players
 
   def start(deck: ShufflingDeck.new, player_1: WarPlayer.new(name: 'Alice', cards: CardDeck.new([])), player_2: WarPlayer.new(name: 'Bob', cards: CardDeck.new([])))
     @players = [player_1, player_2]
-    @table_cards = []
+    deck.shuffle
     deal_game_cards(deck)
   end
 
-  def play_round
+  def play_round(table_cards = [])
     player_1_card = players.first.play_card
     player_2_card = players.last.play_card
     table_cards << player_1_card << player_2_card
     best_card = better_card(player_1_card, player_2_card)
     round_result = WarRoundResult.new(best_card, player_1_card, player_2_card, players, table_cards.count)
-    award_cards_to_winner(round_result.winner)
+    award_cards_to_winner(round_result.winner, table_cards)
     round_result.description
   end
 
@@ -59,9 +59,13 @@ class WarGame
     end
   end
 
-  def award_cards_to_winner(player)
+  def award_cards_to_winner(player, table_cards)
     if player
-      table_cards.count.times { player.pick_up_card(table_cards.pop) }
+      table_cards = mix_up_cards(table_cards)
+      table_cards.count.times do
+        card = table_cards.pop
+        player.pick_up_card(card)
+      end
     end
   end
 
@@ -72,5 +76,6 @@ class WarGame
       card = mixed_cards.shift
       mixed_cards.push(card)
     end
+    mixed_cards
   end
 end
