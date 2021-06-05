@@ -50,7 +50,8 @@ describe 'WarRoundResult' do
   end
 
   it 'sets the description of a tied round' do
-    round_result = WarRoundResult.new(tied_cards, players)
+    table_cards = tied_cards * (WarGame::EXTRA_TIE_CARDS + 1) # populate the table with the number of cards expected for a 1 round tie
+    round_result = WarRoundResult.new(table_cards, players)
     final_card_count = (WarGame::EXTRA_TIE_CARDS * 2) + 2
     expect(round_result.description).to eq "Both play #{tied_cards.first.rank}! Each player adds #{WarGame::EXTRA_TIE_CARDS} more cards. There are #{final_card_count} cards on the table."
   end
