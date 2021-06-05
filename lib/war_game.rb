@@ -16,7 +16,7 @@ class WarGame
 
   def play_round(last_round_table_cards = [])
     table_cards = play_all_round_cards(last_round_table_cards)
-    round_result = WarRoundResult.new(table_cards[-2], table_cards[-1], players, table_cards.count)
+    round_result = WarRoundResult.new(table_cards, players)
     award_cards_to_winner(round_result.winner, table_cards)
     round_result.description
   end

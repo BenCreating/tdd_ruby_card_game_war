@@ -3,11 +3,14 @@ require_relative 'war_game'
 class WarRoundResult
   attr_reader :winner, :description
 
-  def initialize(player_1_card, player_2_card, players, table_cards_count)
+  def initialize(table_cards, players)
+    player_1_card = table_cards[-2]
+    player_2_card = table_cards[-1]
+
     winner_card = better_card(player_1_card, player_2_card)
     loser_card = worse_card(player_1_card, player_2_card)
     @winner = get_winner(winner_card, player_1_card, player_2_card, players)
-    @description = write_description(winner_card, loser_card, table_cards_count, player_1_card.rank)
+    @description = write_description(winner_card, loser_card, table_cards.count, player_1_card.rank)
   end
 
   def better_card(card1, card2)
