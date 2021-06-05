@@ -99,9 +99,11 @@ describe 'WarGame' do
     end
 
     it 'returns a string describing a tied round' do
-      players = PlayerHolder.new(cards1: ['5'], cards2: ['5'])
+      player_card_ranks = ['5', '5', '5', '5']
+      players = PlayerHolder.new(cards1: player_card_ranks, cards2: player_card_ranks)
       game.start(deck: deck, player_1: players.player_1, player_2: players.player_2)
-      expect(game.play_round).to eq "Both play 5! There are 2 cards on the table."
+      final_card_count = player_card_ranks.count * 2
+      expect(game.play_round).to eq "Both play #{player_card_ranks.last}! Each player adds #{WarGame::EXTRA_TIE_CARDS} more cards. There are #{final_card_count} cards on the table."
     end
 
     context 'tie games' do
