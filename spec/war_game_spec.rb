@@ -106,7 +106,7 @@ describe 'WarGame' do
 
     context 'tie games' do
       let(:deck) { ShufflingDeck.new([]) }
-      let(:tie_cards) { ['7', 'J'] }
+      let(:tie_cards) { ['9', '6', '4', '2', '5', '3', '7', 'J'] }
       let(:winning_cards) { ['6', 'K'] }
       let(:losing_cards) { ['8', '2'] }
 
@@ -114,24 +114,8 @@ describe 'WarGame' do
         players = PlayerHolder.new(cards1: winning_cards + tie_cards, cards2: losing_cards + tie_cards)
         game.start(deck: deck, player_1: players.player_1, player_2: players.player_2)
         3.times { game.play_round }
-        expect(game.players.first.card_count).to eq 7
+        expect(game.players.first.card_count).to eq 19
         expect(game.players.last.card_count).to eq 1
-      end
-
-      it 'has the correct number of cards on the table during a tie' do
-        players = PlayerHolder.new(cards1: winning_cards + tie_cards, cards2: losing_cards + tie_cards)
-        game.start(deck: deck, player_1: players.player_1, player_2: players.player_2)
-        game.play_round
-        expect(game.table_cards.count).to eq 2
-        game.play_round
-        expect(game.table_cards.count).to eq 4
-      end
-
-      it 'no cards left on the table when a tie is broken' do
-        players = PlayerHolder.new(cards1: winning_cards + tie_cards, cards2: losing_cards + tie_cards)
-        game.start(deck: deck, player_1: players.player_1, player_2: players.player_2)
-        3.times { game.play_round }
-        expect(game.table_cards.count).to eq 0
       end
 
       it 'the rounds tie until player 2 wins and takes all the cards' do
@@ -139,7 +123,15 @@ describe 'WarGame' do
         game.start(deck: deck, player_1: players.player_1, player_2: players.player_2)
         3.times { game.play_round }
         expect(game.players.first.card_count).to eq 1
-        expect(game.players.last.card_count).to eq 7
+        expect(game.players.last.card_count).to eq 19
+      end
+
+      it 'the players drop the correct number of cards for a tie' do
+        players = PlayerHolder.new(cards1: winning_cards + tie_cards, cards2: losing_cards + tie_cards)
+        game.start(deck: deck, player_1: players.player_1, player_2: players.player_2)
+        game.play_round
+        expect(game.players.first.card_count).to eq 6
+        expect(game.players.last.card_count).to eq 6
       end
     end
   end
