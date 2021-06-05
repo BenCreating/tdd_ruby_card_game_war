@@ -81,4 +81,28 @@ describe 'WarGameInterface' do
     expect(game_interface.game.players.first.name).to eq player_interface_1.game_player.name
     expect(game_interface.game.players.last.name).to eq player_interface_2.game_player.name
   end
+
+  it 'return true when both players are ready' do
+    game_interface = WarGameInterface.new(player_interface_1, player_interface_2)
+    player_interface_1.set_ready
+    player_interface_2.set_ready
+    expect(game_interface.players_ready?).to eq true
+  end
+
+  it 'return false when only player 1 is ready' do
+    game_interface = WarGameInterface.new(player_interface_1, player_interface_2)
+    player_interface_1.set_ready
+    expect(game_interface.players_ready?).to eq false
+  end
+
+  it 'return false when only player 2 is ready' do
+    game_interface = WarGameInterface.new(player_interface_1, player_interface_2)
+    player_interface_2.set_ready
+    expect(game_interface.players_ready?).to eq false
+  end
+
+  it 'return false when neither player is ready' do
+    game_interface = WarGameInterface.new(player_interface_1, player_interface_2)
+    expect(game_interface.players_ready?).to eq false
+  end
 end

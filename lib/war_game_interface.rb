@@ -25,4 +25,13 @@ class WarGameInterface
     end
     puts "Winner: #{game.winner.name}"
   end
+
+  def players_ready?
+    if player_interfaces.first.ready && player_interfaces.last.ready
+      true
+    else
+      false
+    end
+  end
+
 end
