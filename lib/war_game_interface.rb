@@ -19,7 +19,7 @@ class WarGameInterface
     end
   end
 
-  def run_game(game)
+  def run_game
     until game.winner do
       game.play_round
     end
