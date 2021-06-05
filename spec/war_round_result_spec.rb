@@ -93,4 +93,19 @@ describe 'WarRoundResult' do
     round_result = WarRoundResult.new(best_card, best_card, players, table_cards_count)
     expect(round_result.better_card(best_card, best_card)).to eq nil
   end
+
+  it 'returns the correct value for letter cards' do
+    round_result = WarRoundResult.new(best_card, loser_card, players, table_cards_count)
+    expect(round_result.value_card(MockPlayingCard.new('J'))).to eq 11
+    expect(round_result.value_card(MockPlayingCard.new('Q'))).to eq 12
+    expect(round_result.value_card(MockPlayingCard.new('K'))).to eq 13
+    expect(round_result.value_card(MockPlayingCard.new('A'))).to eq 14
+  end
+
+  it 'returns the correct value for number cards' do
+    round_result = WarRoundResult.new(best_card, loser_card, players, table_cards_count)
+    (2..10).each do |number|
+      expect(round_result.value_card(MockPlayingCard.new(number.to_s))).to eq number
+    end
+  end
 end
