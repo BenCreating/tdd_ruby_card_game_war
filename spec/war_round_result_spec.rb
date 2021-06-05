@@ -66,17 +66,17 @@ describe 'WarRoundResult' do
 
   it 'returns the losing card, when the losing card is the player 1 card' do
     round_result = WarRoundResult.new(loser_card, best_card, players, table_cards_count)
-    expect(round_result.worse_card(best_card, loser_card, best_card)).to eq loser_card
+    expect(round_result.worse_card(loser_card, best_card)).to eq loser_card
   end
 
   it 'returns the losing card, when the losing card is the player 2 card' do
     round_result = WarRoundResult.new(best_card, loser_card, players, table_cards_count)
-    expect(round_result.worse_card(best_card, best_card, loser_card)).to eq loser_card
+    expect(round_result.worse_card(best_card, loser_card)).to eq loser_card
   end
 
   it 'returns nil for the losing card, when there is a tie' do
     round_result = WarRoundResult.new(best_card, best_card, players, table_cards_count)
-    expect(round_result.worse_card(nil, best_card, best_card)).to eq nil
+    expect(round_result.worse_card(best_card, best_card)).to eq nil
   end
 
   it 'returns the winning card, when the winning card is the player 1 card' do
