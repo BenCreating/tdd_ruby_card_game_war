@@ -14,13 +14,24 @@ class WarGame
     deal_game_cards(deck)
   end
 
-  def play_round(table_cards = [])
-    player_1_card = players.first.play_card
-    player_2_card = players.last.play_card
-    table_cards << player_1_card << player_2_card
-    round_result = WarRoundResult.new(player_1_card, player_2_card, players, table_cards.count)
+  def play_round(last_round_table_cards = [])
+    table_cards = play_all_round_cards(last_round_table_cards)
+    round_result = WarRoundResult.new(table_cards[-2], table_cards[-1], players, table_cards.count)
     award_cards_to_winner(round_result.winner, table_cards)
     round_result.description
+  end
+
+  def play_all_round_cards(last_round_table_cards = [])
+    first_cards = [players.first.play_card, players.last.play_card]
+    round_cards = []
+    if first_cards[0].rank == first_cards[1].rank
+      EXTRA_TIE_CARDS.times do
+        round_cards << players.first.play_card
+        round_cards << players.last.play_card
+      end
+    end
+    # put the first cards on the end so if there were already cards on the table we can find the cards that were compared in this round
+    last_round_table_cards + round_cards + first_cards
   end
 
   def winner

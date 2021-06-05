@@ -135,6 +135,16 @@ describe 'WarGame' do
         expect(game.players.first.card_count).to eq 6
         expect(game.players.last.card_count).to eq 6
       end
+
+      it 'adds extra cards to the table' do
+        player_hand = CardDeck.new([PlayingCard.new('5'), PlayingCard.new('5'), PlayingCard.new('5'), PlayingCard.new('5')])
+        game = WarGame.new
+        game.start(deck: ShufflingDeck.new([]), player_1: WarPlayer.new(cards: player_hand), player_2: WarPlayer.new(cards: player_hand))
+        table_cards = game.play_all_round_cards()
+        expect(table_cards.count).to eq 8
+        expect(game.players.first.card_count).to eq 0
+        expect(game.players.last.card_count).to eq 0
+      end
     end
   end
 
