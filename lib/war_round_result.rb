@@ -3,8 +3,8 @@ class WarRoundResult
 
   def initialize(player_1_card, player_2_card, players, table_cards_count)
     winner_card = better_card(player_1_card, player_2_card)
+    loser_card = worse_card(winner_card, player_1_card, player_2_card)
     @winner = get_winner(winner_card, player_1_card, player_2_card, players)
-    loser_card = get_loser_card(winner_card, player_1_card, player_2_card)
     @description = write_description(winner_card, loser_card, table_cards_count, player_1_card.rank)
   end
 
@@ -38,7 +38,7 @@ class WarRoundResult
     end
   end
 
-  def get_loser_card(winner_card, player_1_card, player_2_card)
+  def worse_card(winner_card, player_1_card, player_2_card)
     if winner_card == nil
       nil
     elsif winner_card != player_1_card
