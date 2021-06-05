@@ -4,17 +4,20 @@ delay = 0.5
 
 server = WarSocketServer.new
 server.start
-until server.create_game_if_possible do
+loop do
   sleep(delay)
   server.accept_new_client
+  game = server.create_game_if_possible
+  if game
+    # thread code goes here
+  end
 end
-
-game_interface = server.game_interfaces.first
-until game_interface.game.winner do
-  sleep(delay)
-  server.check_ready_players(game_interface)
-  game_interface.update_game
-end
-puts "Winner: #{game_interface.game.winner.name}"
 
 server.stop
+# game_interface = server.game_interfaces.first
+# until game_interface.game.winner do
+#   sleep(delay)
+#   server.check_ready_players(game_interface)
+#   game_interface.update_game
+# end
+# puts "Winner: #{game_interface.game.winner.name}"
