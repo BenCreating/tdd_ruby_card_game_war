@@ -78,13 +78,4 @@ describe WarSocketServer do
     @server.create_game_if_possible
     expect(@server.game_interfaces.count).to be 1
   end
-
-  it 'reports that the game has started' do
-    clients = setup_server_and_players()
-    client1 = clients.first
-    client2 = clients.last
-    capture_output(clients)
-    expect(client1.output).to eq 'Game started, type anything to start'
-    expect(client2.output).to eq 'Game started, type anything to start'
-  end
 end

@@ -20,6 +20,9 @@ class WarGameInterface
   end
 
   def run_game
+    player_interfaces.each do |player_interface|
+      player_interface.client.puts 'Game started, type anything to start'
+    end
     until game.winner do
       update_game
     end
