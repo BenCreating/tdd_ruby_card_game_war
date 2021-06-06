@@ -148,7 +148,7 @@ describe 'WarGame' do
     end
   end
 
-  context 'winner' do
+  context 'winner and loser' do
     let(:deck) { ShufflingDeck.new([]) }
     let(:winning_cards) { ['A', '6'] }
     let(:losing_cards) { ['K', '3'] }
@@ -172,6 +172,20 @@ describe 'WarGame' do
       game.start(deck: deck, player_1: players.player_1, player_2: players.player_2)
       2.times { game.play_round }
       expect(game.winner).to eq game.players.last
+    end
+
+    it 'reports that player 1 has lost' do
+      players = PlayerHolder.new(cards1: losing_cards, cards2: winning_cards)
+      game.start(deck: deck, player_1: players.player_1, player_2: players.player_2)
+      2.times { game.play_round }
+      expect(game.loser).to eq game.players.first
+    end
+
+    it 'reports that player 2 has lost' do
+      players = PlayerHolder.new(cards1: winning_cards, cards2: losing_cards)
+      game.start(deck: deck, player_1: players.player_1, player_2: players.player_2)
+      2.times { game.play_round }
+      expect(game.loser).to eq game.players.last
     end
   end
 

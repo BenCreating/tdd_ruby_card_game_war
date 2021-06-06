@@ -43,6 +43,16 @@ class WarGame
     return players_still_in_game.pop if players_still_in_game.count == 1
   end
 
+  def loser
+    losing_player = nil
+    if winner()
+      players.each do |player|
+        losing_player = player if player.card_count == 0
+      end
+    end
+    losing_player
+  end
+
   def deal_game_cards(deck)
     cards_per_player = deck.cards_left/players.count
     players.each do |player|

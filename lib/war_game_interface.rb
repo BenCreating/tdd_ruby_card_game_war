@@ -23,7 +23,7 @@ class WarGameInterface
     until game.winner do
       update_game
     end
-    puts "Winner: #{game.winner.name}"
+    puts "#{game.loser.name} is out of cards. #{game.winner.name} wins!"
   end
 
   def players_ready?
