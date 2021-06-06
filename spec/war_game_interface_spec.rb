@@ -4,16 +4,18 @@ require_relative '../lib/card_deck'
 require_relative '../lib/playing_card'
 
 class GameInterfaceMockWarSocketClient
+  attr_accessor :input
+
   def initialize
     @input = nil
   end
 
-  def puts(input)
-    @input = input
+  def puts(message)
+    self.input = message
   end
 
   def capture_output
-    @input
+    self.input
   end
 end
 
