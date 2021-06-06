@@ -107,4 +107,13 @@ describe 'WarGameInterface' do
     game_interface = WarGameInterface.new(player_interface_1, player_interface_2)
     expect(game_interface.players_ready?).to eq false
   end
+
+  it 'sends a message to a player' do
+    message = "Hello"
+    game_interface = WarGameInterface.new(player_interface_1, player_interface_2)
+    game_interface.message_player(player_interface_1, message)
+    expect(player_interface_1.client.capture_output).to eq message
+    game_interface.message_player(player_interface_2, message)
+    expect(player_interface_2.client.capture_output).to eq message
+  end
 end

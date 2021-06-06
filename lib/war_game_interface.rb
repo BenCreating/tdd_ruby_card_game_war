@@ -29,6 +29,10 @@ class WarGameInterface
     puts "#{game.loser.name} is out of cards. #{game.winner.name} wins!"
   end
 
+  def message_player(player_interface, message)
+    player_interface.client.puts(message)
+  end
+
   def players_ready?
     if player_interfaces.first.ready && player_interfaces.last.ready
       true
