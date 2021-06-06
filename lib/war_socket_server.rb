@@ -22,7 +22,7 @@ class WarSocketServer
     player_interface_queue << PlayerInterface.new(client, player_name)
     puts "Client #{player_name} connected"
   rescue IO::WaitReadable, Errno::EINTR
-    puts "No client to accept"
+    nil
   end
 
   def check_ready_players(game)
