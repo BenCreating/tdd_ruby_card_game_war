@@ -13,16 +13,14 @@ class WarGameInterface
     if players_ready?
       round_result = game.play_round
       player_interfaces.each do |interface|
-        interface.client.puts(round_result)
+        message_player(interface, round_result)
         interface.clear_ready
       end
     end
   end
 
   def run_game
-    player_interfaces.each do |player_interface|
-      player_interface.client.puts 'Game started, type anything to start'
-    end
+    player_interfaces.each { |interface| message_player(interface, 'Game started, type anything to start') }
     until game.winner do
       update_game
     end
