@@ -31,7 +31,22 @@ class WarGameInterface
     player_interface.client.puts(message)
   end
 
+  def update_ready_players
+    player_interfaces.each do |interface|
+      if capture_output(interface.client)
+        interface .set_ready
+      end
+    end
+  end
+
+  def capture_output(client, delay=0.1)
+    sleep(delay)
+    client.read_nonblock(1000).chomp # not gets which blocks
+  rescue IO::WaitReadable
+  end
+
   def players_ready?
+    update_ready_players
     if player_interfaces.first.ready && player_interfaces.last.ready
       true
     else

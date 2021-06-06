@@ -25,14 +25,6 @@ class WarSocketServer
     nil
   end
 
-  def check_ready_players(game)
-    game.player_interfaces.each do |player_interface|
-      if capture_output(player_interface.client)
-        player_interface.set_ready
-      end
-    end
-  end
-
   def capture_output(client, delay=0.1)
     sleep(delay)
     client.read_nonblock(1000).chomp # not gets which blocks

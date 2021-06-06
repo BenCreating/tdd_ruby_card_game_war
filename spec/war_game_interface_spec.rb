@@ -116,4 +116,11 @@ describe 'WarGameInterface' do
     game_interface.message_player(player_interface_2, message)
     expect(player_interface_2.client.capture_output).to eq message
   end
+
+  it 'updates the ready players' do
+    game_interface = WarGameInterface.new(player_interface_1, player_interface_2)
+    player_interface_1.client.puts('Ready')
+    game_interface.update_ready_players
+    expect(player_interface_1.ready).to eq true
+  end
 end
