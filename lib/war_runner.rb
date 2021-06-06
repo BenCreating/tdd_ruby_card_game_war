@@ -5,4 +5,4 @@ game.start
 until game.winner do
   puts game.play_round
 end
-puts "Winner: #{game.winner.name}"
+puts "#{game.loser.name} is out of cards. #{game.winner.name} wins!"
